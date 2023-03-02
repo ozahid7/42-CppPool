@@ -15,11 +15,11 @@ OBJ = $(addprefix build/, $(SRC:.cpp=.o))
 all: $(NAME)
 
 $(NAME) : $(OBJ) $(HEADER)
-	$(C++) $(CPP_FLAGS) $(OBJ) -o $(NAME) 
+	$(C++)  $(OBJ) -o $(NAME) 
 
 build/%.o: %.cpp
 	@mkdir -p $(@D)
-	$(C++) $(CPP_FLAGS) -c $(SRC) -o $(OBJ)
+	$(C++)  -c $(SRC) -o $(OBJ)
 	
 clean:
 	@rm -rf $(BUILD)
