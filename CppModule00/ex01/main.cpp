@@ -18,8 +18,20 @@ int main()
 	// if (!command.compare("SEARCH") || !command.compare("search"))
 	// 	search();
 	Contact contact;
-
+	Contact c;
+	PhoneBook phonebook;
 	contact.setfname("oussama");
 	std::cout<<contact.getfname();
+	contact.setlname("zahid");
+	std::cout<<contact.getlname();
+	contact.setnname("ozahid");
+	std::cout<<contact.getnname();
+	contact.setphonenum("021456433");
+	std::cout<<contact.getphonenum();
+
+	phonebook.setcontact(contact, 0);
+	c = phonebook.getcontacts();
+	std::cout<<"_____"<<c.getfname();
+
 
 }
