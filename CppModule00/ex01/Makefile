@@ -2,15 +2,15 @@ NAME = MyAwesomePhoneBook
 
 BUILD = build
 
-HEADER = MyAwesomePhoneBook.hpp
+HEADER = PhoneBook.hpp  Contact.hpp\
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = MyAwesomePhoneBook.cpp\
+SRC = main.cpp PhoneBook.cpp Contact.cpp\
 
-OBJ = $(addprefix build/, $(SRC:.cpp=.o))
+OBJ =  $(SRC:.cpp=.o)
 
 all: $(NAME)
 
@@ -18,7 +18,6 @@ $(NAME) : $(OBJ) $(HEADER)
 	$(C++)  $(OBJ) -o $(NAME) 
 
 build/%.o: %.cpp
-	@mkdir -p $(@D)
 	$(C++)  -c $(SRC) -o $(OBJ)
 	
 clean:
