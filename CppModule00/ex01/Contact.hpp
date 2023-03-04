@@ -19,6 +19,7 @@ public:
 	std::string getlname();
 	std::string getnname();
 	std::string getphonenum();
+	void	printcontact(long int index);
 
 };
 #endif

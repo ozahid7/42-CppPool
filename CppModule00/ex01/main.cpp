@@ -30,7 +30,7 @@ std::string	print_interface()
 	std::cout<<"          (Add)           (Search)           (Exit)          "<<std::endl;
 	std::cout << std::endl;
 	while (buffer.empty()){
-		std::cout<<"Enter Command $: ";
+		std::cout<<"PhoneBook... :$ ";
 		buffer = get_next_line();
 	}
 	return buffer;
@@ -43,6 +43,10 @@ int main()
 	Contact tmp;
 	PhoneBook phonebook;
 	std::string buffer;
+	std::stringstream str;
+
+	
+	while (1){
 	buffer = print_interface();
 	if (!buffer.compare("EXIT") || !buffer.compare("exit"))
 		exit (0);
@@ -50,4 +54,5 @@ int main()
 		phonebook.addtophonebook();
 	if (!buffer.compare("SEARCH") || !buffer.compare("search"))
 		phonebook.search();
+	}
 }

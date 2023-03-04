@@ -25,3 +25,10 @@ std::string Contact::getnname(){
 std::string Contact::getphonenum(){
 	return phonenumber;
 }
+
+void	Contact::printcontact(long int index){
+	std::cout<<"Index     : "<<index<<std::endl;
+	std::cout<<"FirstName : "<<firstname<<std::endl;
+	std::cout<<"LastName  : "<<lastname<<std::endl;
+	std::cout<<"NickName  : "<<nickname<<std::endl;
+}
