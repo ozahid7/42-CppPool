@@ -40,18 +40,24 @@ void	PhoneBook::addtophonebook(){
 		this->index = 0;
 }
 
+void	PhoneBook::display_contact(){
+	for (int i = 0; i < this->index; i++)
+		std::cout<<i<<" | "<<this->contacts[i].getfname()<<" | "<<this->contacts[i].getlname()<<" | "<<this->contacts[i].getnname()<<std::endl;
+}
+
 void  PhoneBook::search(){
 	std::string	buffer;
 	char	*end_ptr = NULL;
 	long int	index;
-
+	display_contact();
 	while (buffer.empty()){
-		std::cout<<"Search... :$ ";
+		std::cout<<"Index... :$ ";
 		buffer = get_next_line();
 		index = std::strtol(buffer.c_str(), &end_ptr, 10);
-		if (*end_ptr || index < 0 || index > 7)
+		if (*end_ptr || index < 0 || index >= this->index)
 			std::cout<<"Invalid Input"<<std::endl;
-		this->contacts[index].printcontact(index);
+		else
+			this->contacts[index].printcontact(index);
 	}
 }
 

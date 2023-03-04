@@ -14,6 +14,7 @@ private:
 	int		index;
 public:
 	void	addtophonebook();
+	void	display_contact();
 	void	setcontact(Contact contact);
 	void	search();
 };
