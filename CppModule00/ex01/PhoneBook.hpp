@@ -1,5 +1,5 @@
-#ifndef MYAWESOMEPHONEBOOK_HPP
-#define MYAWESOMEPHONEBOOK_HPP
+#ifndef PHONEBOOK_HPP
+#define PHONEBOOK_HPP
 
 #include <iostream>
 #include "Contact.hpp"
@@ -11,8 +11,8 @@ class PhoneBook
 private:
 	Contact contacts[8];
 public:
-	void setcontact(Contact, int index);
-	Contact  getcontacts();
+	void addtophonebook();
+	Contact  search();
 };
 
 

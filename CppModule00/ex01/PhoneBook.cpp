@@ -1,20 +1,38 @@
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 
-void    quit(void){
-    exit(0);
+std::string get_next_line()
+{
+	std::string buffer;
+
+	std::getline(std::cin, buffer);
+	if (std::cin.fail())
+		exit(1);
+	return buffer;
 }
 
-void    search(void){
+void	PhoneBook::addtophonebook(){
+	Contact contact;
 
+	while (contact.getfname().empty()){
+		std::cout << "Enter Your First Name : ";
+		contact.setfname(get_next_line());
+	}
+	while (contact.getfname().empty()){
+	std::cout << "Enter Your Last Name : ";
+	contact.setlname(get_next_line());
+	}
+	while (contact.getfname().empty()){
+	std::cout << "Enter Your Nick Name : ";
+	contact.setnname(get_next_line());
+	}
+	while (contact.getfname().empty()){
+	std::cout << "Enter Your Phone Number : ";
+	contact.setphonenum(get_next_line());
+	}
 }
 
-
-
-void	PhoneBook::setcontact(Contact contact, int index){
-	contacts[index] = contact;
-}
-Contact  PhoneBook::getcontacts(){
+Contact  PhoneBook::search(){
 	return this->contacts[0];
 }
 
