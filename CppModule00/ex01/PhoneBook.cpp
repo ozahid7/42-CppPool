@@ -18,22 +18,25 @@ void	PhoneBook::addtophonebook(){
 		std::cout << "Enter Your First Name : ";
 		contact.setfname(get_next_line());
 	}
-	while (contact.getfname().empty()){
+	while (contact.getlname().empty()){
 	std::cout << "Enter Your Last Name : ";
 	contact.setlname(get_next_line());
 	}
-	while (contact.getfname().empty()){
+	while (contact.getnname().empty()){
 	std::cout << "Enter Your Nick Name : ";
 	contact.setnname(get_next_line());
 	}
-	while (contact.getfname().empty()){
+	while (contact.getphonenum().empty()){
 	std::cout << "Enter Your Phone Number : ";
 	contact.setphonenum(get_next_line());
 	}
+	this->index++;
+	if (this->index == 8)
+		this->index = 0;
 }
 
 Contact  PhoneBook::search(){
-	return this->contacts[0];
+	return this->contacts[this->index];
 }
 
 

@@ -18,25 +18,36 @@ int	check_buffer(std::string buffer)
 	return 0;
 }
 
+std::string	print_interface()
+{
+	std::string buffer;
 
-#include <sstream>
-#include <vector>
+	std::cout<<"*************************************************************"<<std::endl;
+	std::cout<<"*                   MY AWESOME PHONE BOOK                   *"<<std::endl;
+	std::cout<<"*************************************************************"<<std::endl;
+	std::cout<<"______________Choose One Of The Commands Bellow______________"<<std::endl;
+	std::cout << std::endl;
+	std::cout<<"          (Add)           (Search)           (Exit)          "<<std::endl;
+	std::cout << std::endl;
+	while (buffer.empty()){
+		std::cout<<"Enter Command $: ";
+		buffer = get_next_line();
+	}
+	return buffer;
+}
+
+
 int main()
 {
 	Contact contact;
 	Contact tmp;
 	PhoneBook phonebook;
 	std::string buffer;
-
-	std::cout << "Enter Command : ";
-	std::getline(std::cin, buffer);
+	buffer = print_interface();
 	if (!buffer.compare("EXIT") || !buffer.compare("exit"))
 		exit (0);
 	if (!buffer.compare("ADD") || !buffer.compare("add"))
-	{
-		
-	}
-
+		phonebook.addtophonebook();
 	if (!buffer.compare("SEARCH") || !buffer.compare("search"))
 		phonebook.search();
 }
