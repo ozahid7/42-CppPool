@@ -17,6 +17,7 @@ public:
 	void	display_contact();
 	void	setcontact(Contact contact);
 	void	search();
+	
 };
 
 

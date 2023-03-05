@@ -1,6 +1,24 @@
 #include "PhoneBook.hpp"
 #include "Contact.hpp"
 
+std::string respect(std::string str)
+{
+	size_t width = 10;
+	size_t spaces;
+
+	if (str.length() > 10)
+	{
+		str.insert(9, 1, '.');
+	}
+	else if(str.length() < 10)
+	{
+		spaces = width - str.length();
+		str.insert(0, spaces, ' ');
+	}
+	return str;
+}
+
+
 std::string get_next_line()
 {
 	std::string buffer;
@@ -17,7 +35,7 @@ void	PhoneBook::setcontact(Contact contact){
 
 void	PhoneBook::addtophonebook(){
 	Contact contact;
-
+	
 	while (contact.getfname().empty()){
 		std::cout << "Enter Your First Name : ";
 		contact.setfname(get_next_line());
@@ -41,9 +59,21 @@ void	PhoneBook::addtophonebook(){
 }
 
 void	PhoneBook::display_contact(){
+	std::string fname;
+	std::string lname;
+	std::string nname;
+
 	std::cout<<std::endl;
 	for (int i = 0; i < this->index; i++)
-		std::cout<<i<<" | "<<this->contacts[i].getfname()<<" | "<<this->contacts[i].getlname()<<" | "<<this->contacts[i].getnname()<<std::endl;
+	{
+		fname = this->contacts[i].getfname();
+		fname = respect(fname).substr(0, 10);
+		lname = this->contacts[i].getlname();
+		lname = respect(lname).substr(0, 10);
+		nname = this->contacts[i].getnname();
+		nname = respect(nname).substr(0, 10);
+		std::cout<<"         "<<i<<"|"<<fname <<"|"<<lname<<"|"<<nname<<std::endl;
+	}
 	std::cout<<std::endl;
 }
 
