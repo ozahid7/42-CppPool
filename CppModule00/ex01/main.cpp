@@ -1,42 +1,43 @@
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 
-int	check_buffer(std::string buffer)
+void	print_head(){
+	std::cout<<"*************************************************************"<<std::endl;
+	std::cout<<"*                   MY AWESOME PHONE BOOK                   *"<<std::endl;
+	std::cout<<"*************************************************************"<<std::endl;
+	std::cout<<"______________Choose One Of The Commands Bellow______________"<<std::endl;
+	std::cout << std::endl;
+	std::cout<<"          (Add)           (Search)           (Exit)          "<<std::endl;
+	std::cout << std::endl;
+}
+
+std::string	print_interface()
 {
-	size_t j = 0;
-	size_t i;
-	if (buffer.length() == 0)
-		return 1;
-	else{
-		for (i = 0 ; i < buffer.length(); i++){
-			if (buffer[i] == ' ' || buffer[i] == '\t')
-				j++;
-		}
-		if (i == j)
-			return 1;
+	std::string buffer;
+	while (buffer.empty()){
+		std::cout<<"PhoneBook... :$ ";
+		buffer = get_next_line();
 	}
-	return 0;
+	return buffer;
 }
 
 
-#include <sstream>
-#include <vector>
 int main()
 {
-	Contact contact;
-	Contact tmp;
 	PhoneBook phonebook;
 	std::string buffer;
 
-	std::cout << "Enter Command : ";
-	std::getline(std::cin, buffer);
-	if (!buffer.compare("EXIT") || !buffer.compare("exit"))
+	print_head();
+	while (1){
+	buffer = print_interface();
+	if (!buffer.compare("EXIT"))
 		exit (0);
-	if (!buffer.compare("ADD") || !buffer.compare("add"))
-	{
-		
-	}
-
-	if (!buffer.compare("SEARCH") || !buffer.compare("search"))
+	else if (!buffer.compare("ADD"))
+		phonebook.addtophonebook();
+	else if (!buffer.compare("SEARCH"))
 		phonebook.search();
+	else
+		std::cout<<"Invalid Input Choose one of this commands: (add), (search), (exit)"<<std::endl;
+	}
+	return 0;
 }
