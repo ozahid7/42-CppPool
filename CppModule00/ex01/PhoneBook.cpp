@@ -41,8 +41,10 @@ void	PhoneBook::addtophonebook(){
 }
 
 void	PhoneBook::display_contact(){
+	std::cout<<std::endl;
 	for (int i = 0; i < this->index; i++)
 		std::cout<<i<<" | "<<this->contacts[i].getfname()<<" | "<<this->contacts[i].getlname()<<" | "<<this->contacts[i].getnname()<<std::endl;
+	std::cout<<std::endl;
 }
 
 void  PhoneBook::search(){
@@ -51,7 +53,7 @@ void  PhoneBook::search(){
 	long int	index;
 	display_contact();
 	while (buffer.empty()){
-		std::cout<<"Index... :$ ";
+		std::cout<<"Enter Index... :$ ";
 		buffer = get_next_line();
 		index = std::strtol(buffer.c_str(), &end_ptr, 10);
 		if (*end_ptr || index < 0 || index >= this->index)

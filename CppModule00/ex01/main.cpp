@@ -18,10 +18,7 @@ int	check_buffer(std::string buffer)
 	return 0;
 }
 
-std::string	print_interface()
-{
-	std::string buffer;
-
+void	print_head(){
 	std::cout<<"*************************************************************"<<std::endl;
 	std::cout<<"*                   MY AWESOME PHONE BOOK                   *"<<std::endl;
 	std::cout<<"*************************************************************"<<std::endl;
@@ -29,6 +26,11 @@ std::string	print_interface()
 	std::cout << std::endl;
 	std::cout<<"          (Add)           (Search)           (Exit)          "<<std::endl;
 	std::cout << std::endl;
+}
+
+std::string	print_interface()
+{
+	std::string buffer;
 	while (buffer.empty()){
 		std::cout<<"PhoneBook... :$ ";
 		buffer = get_next_line();
@@ -43,16 +45,17 @@ int main()
 	Contact tmp;
 	PhoneBook phonebook;
 	std::string buffer;
-	std::stringstream str;
 
-	
+	print_head();
 	while (1){
 	buffer = print_interface();
 	if (!buffer.compare("EXIT") || !buffer.compare("exit"))
 		exit (0);
-	if (!buffer.compare("ADD") || !buffer.compare("add"))
+	else if (!buffer.compare("ADD") || !buffer.compare("add"))
 		phonebook.addtophonebook();
-	if (!buffer.compare("SEARCH") || !buffer.compare("search"))
+	else if (!buffer.compare("SEARCH") || !buffer.compare("search"))
 		phonebook.search();
+	else
+		std::cout<<"Invalid Input Choose one of this commands: (add), (search), (exit)"<<std::endl;
 	}
 }

@@ -27,8 +27,10 @@ std::string Contact::getphonenum(){
 }
 
 void	Contact::printcontact(long int index){
+	std::cout<<std::endl;
 	std::cout<<"Index     : "<<index<<std::endl;
 	std::cout<<"FirstName : "<<firstname<<std::endl;
 	std::cout<<"LastName  : "<<lastname<<std::endl;
 	std::cout<<"NickName  : "<<nickname<<std::endl;
+	std::cout<<std::endl;
 }
