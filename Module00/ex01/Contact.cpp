@@ -38,7 +38,7 @@ void	Contact::printcontact(long int index){
 	std::cout<<"FirstName   : "<<firstname<<std::endl;
 	std::cout<<"LastName    : "<<lastname<<std::endl;
 	std::cout<<"NickName    : "<<nickname<<std::endl;
-	std::cout<<"PhoneNum    : "<<nickname<<std::endl;
-	std::cout<<"DarkSecret  : "<<nickname<<std::endl;
+	std::cout<<"PhoneNum    : "<<phonenumber<<std::endl;
+	std::cout<<"DarkSecret  : "<<dark<<std::endl;
 	std::cout<<std::endl;
 }

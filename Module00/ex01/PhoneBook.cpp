@@ -114,7 +114,6 @@ void	PhoneBook::display_contact(){
 		nname = this->contacts[i].getnname();
 		nname = respect(nname).substr(0, 10);
 		std::cout<<"         "<<i<<"|"<<fname <<"|"<<lname<<"|"<<nname<<"|"<<std::endl;
-		std::cout<<this->size<<std::endl;
 	}
 	std::cout<<std::endl;
 }
