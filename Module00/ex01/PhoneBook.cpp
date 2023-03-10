@@ -128,7 +128,10 @@ void  PhoneBook::search(){
 		buffer = get_next_line();
 		index = std::strtol(buffer.c_str(), &end_ptr, 10);
 		if (*end_ptr || index < 0 || index >= this->size)
-			std::cout<<"Invalid Input"<<std::endl;
+		{
+			std::cout<<"Invalid Index"<<std::endl;
+			buffer = "";
+		}
 		else
 			this->contacts[index].printcontact(index);
 	}
