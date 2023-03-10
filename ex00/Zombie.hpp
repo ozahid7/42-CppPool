@@ -3,9 +3,8 @@
 
 class Zombie{
 private:
-	std::string _zombie;
+	std::string _name;
 public:
-	Zombie(){
-	};
+
 	void announce(void);
 };
