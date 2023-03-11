@@ -130,7 +130,8 @@ void  PhoneBook::search(){
 		if (*end_ptr || index < 0 || index >= this->size)
 		{
 			std::cout<<"Invalid Index"<<std::endl;
-			buffer = "";
+			if (this->size > 0)
+				buffer = "";
 		}
 		else
 			this->contacts[index].printcontact(index);
