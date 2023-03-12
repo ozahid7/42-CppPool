@@ -2,8 +2,6 @@ NAME =  HITHISISBRAIN
 
 OBJECTS = objects
 
-HEADERS = Zombie.hpp  
-
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
@@ -16,7 +14,7 @@ all: $(NAME)
 $(NAME) : $(OBJ)
 	$(C++) $(CPP_FLAGS) $(OBJ) -o $(NAME) 
 
-$(OBJECTS)/%.o: %.cpp $(HEADERS)
+$(OBJECTS)/%.o: %.cpp
 	@mkdir -p $(@D)
 	$(C++) $(CPP_FLAGS) -c $< -o $@
 	
