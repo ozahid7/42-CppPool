@@ -1,4 +1,4 @@
-NAME = BraiiiiiiinnnzzzZ
+NAME = Moarbrainz
 
 OBJECTS = objects
 
@@ -9,7 +9,7 @@ C++ = c++
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp\
- 		newZombie.cpp randomChump.cpp Zombie.cpp\
+ 		zombieHorde.cpp Zombie.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
