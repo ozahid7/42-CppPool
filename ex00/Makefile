@@ -11,7 +11,7 @@ CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC =	main.cpp\
  		newZombie.cpp randomChump.cpp Zombie.cpp\
 
-OBJ =  $(addprefix build/, $(SRC:.cpp=.o))
+OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
 all: $(NAME)
 $(NAME) : $(OBJ)

@@ -2,5 +2,6 @@
 
 int main ()
 {
-	Zombie zombie;
+	Zombie zombie("Foo");
+	zombie.announce();
 }
