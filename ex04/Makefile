@@ -3,11 +3,11 @@ OBJECTS = objects
 
 C++ = c++
 
-HEADERS = Change.hpp Read.hpp sed.hpp\
+HEADERS = Replace.hpp\
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp Read.cpp Change.cpp Write.cpp\
+SRC =	main.cpp Replace.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
