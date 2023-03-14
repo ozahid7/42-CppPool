@@ -1,14 +1,14 @@
-NAME =  Unnecessaryviolence
+NAME =  Harl
 
 OBJECTS = objects
 
 C++ = c++
 
-HEADERS = Weapon.hpp HumanA.hpp HumanB.hpp\
+HEADERS = Harl.hpp\
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp Weapon.cpp HumanA.cpp HumanB.cpp\
+SRC =	main.cpp Harl.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
