@@ -11,6 +11,10 @@ void Read::readit(){
 	std::fstream file(_name);
 	size_t pos;
 	std::string buffer;
+	if (_src.empty()){
+		std::cerr<<"Empty Arguments"<<std::endl;
+		return;
+	}
 	if (file.is_open()){
 		std::ofstream replaced(_name  + ".replace", std::ios::out);
 		getline(file, buffer, '\0');
@@ -20,7 +24,6 @@ void Read::readit(){
 				buffer.erase(pos, _src.length());
 				buffer.insert(pos, _change);
 				pos = buffer.find(_src, pos + _change.length());
-
 			}
 			if (replaced.is_open()){
 				replaced << buffer;
