@@ -20,7 +20,7 @@ $(OBJECTS)/%.o: %.cpp $(HEADERS)
 	$(C++) $(CPP_FLAGS) -c $< -o $@
 	
 clean:
-	@rm -rf $(OBJECTS)
+	@rm -rf $(OBJECTS) *.replace
 
 fclean: clean
 	@rm -rf $(NAME)
