@@ -1,5 +1,9 @@
 #include "Harl.hpp"
 
+void	Harl::myerror(){
+	std::cerr<<"Level Not Valid"<<std::endl;
+}
+
 void	Harl::debug(){
 	std::cout<<"[ DEBUG ]"<<std::endl;
 	std::cout<<"I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. I really do!"<<std::endl;
@@ -23,16 +27,16 @@ void	Harl::error(){
 
 void	Harl::complain(std::string level){
 		int i;
-		std::string msg[4] = {"debug", "info", "warning", "error"};
+		std::string msg[5] = {"debug", "info", "warning", "error"};
 
-		void (Harl::*ptr[4])(void);
+		void (Harl::*ptr[5])(void);
 		ptr[0] = &Harl::debug;
 		ptr[1] = &Harl::info;
 		ptr[2] = &Harl::warning;
 		ptr[3] = &Harl::error;
-		for(i = 0; i < 4; i++){
-			if (!msg[i].find(level)) break;
+		ptr[4] = &Harl::myerror;
+		for (i = 0; i < 4; i++){
+			if (!msg[i].find(level) && level != "") break;
 		}
-		std::cout << i << std::endl;
 		(this->*ptr[i])();
 }
