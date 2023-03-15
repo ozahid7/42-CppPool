@@ -1,7 +1,6 @@
 objects
 HITHISISBRAIN
 Moarbrainz
-*.o
 Harlfilter
 Harl
 .vscode
@@ -11,9 +10,6 @@ Sed
 BraiiiiiiinnnzzzZ
 Unnecessaryviolence
 .gitignore
-build
 *.o
 megaphone
-.vscode
-*.DS_Store
 MyAwesomePhoneBook
