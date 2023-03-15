@@ -36,7 +36,7 @@ void	Harl::complain(std::string level){
 		ptr[3] = &Harl::error;
 		ptr[4] = &Harl::myerror;
 		for (i = 0; i < 4; i++){
-			if (!msg[i].find(level) && level != "") break;
+			if (!msg[i].find(level) && !level.empty()) break;
 		}
 		(this->*ptr[i])();
 }
