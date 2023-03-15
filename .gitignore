@@ -11,3 +11,9 @@ Sed
 BraiiiiiiinnnzzzZ
 Unnecessaryviolence
 .gitignore
+build
+*.o
+megaphone
+.vscode
+*.DS_Store
+MyAwesomePhoneBook
