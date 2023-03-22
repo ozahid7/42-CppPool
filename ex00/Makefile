@@ -1,15 +1,14 @@
-NAME = MyAwesomePhoneBook
+NAME = ortodox
 
 BUILD = build
 
-HEADERS = PhoneBook.hpp  Contact.hpp
+HEADERS = Fixed.hpp\
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
- 		PhoneBook.cpp Contact.cpp\
+SRC =	main.cpp Fixed.cpp\
 
 OBJ =  $(addprefix build/, $(SRC:.cpp=.o))
 
