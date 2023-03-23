@@ -13,8 +13,9 @@ public:
 	Fixed(Fixed const & src);
 	~Fixed( void );
 
-	Fixed & operator=(Fixed const & rhs);
-	Fixed & operator<<(Fixed const & rhs);
+	Fixed & operator=(Fixed const & other);
+	Fixed & operator<<(Fixed const & other);
+	
 	float toFloat( void ) const;
 	int toInt( void ) const;
 	int		getRawBits( void ) const;
@@ -23,7 +24,31 @@ public:
 private:
 	int _value;
 	static const int _fractional = 8;
-	
+
+public: 
+
+//comparison operators
+
+	bool	operator==(Fixed const & other);
+	bool	operator<=(Fixed const & other);
+	bool	operator>=(Fixed const & other);
+	bool	operator>(Fixed const & other);
+	bool	operator<(Fixed const & other);
+	bool	operator!=(Fixed const & other);
+
+	//arithmetic operators
+
+	Fixed	&operator+(Fixed const &other);
+	Fixed	&operator-(Fixed const &other);
+	Fixed	&operator*(Fixed const &other);
+	Fixed	&operator/(Fixed const &other);
+
+	//increment operators
+
+	Fixed	&operator++();
+	Fixed	&operator++(int);
+	Fixed	&operator--();
+	Fixed	&operator--(int);
 };
 
 
