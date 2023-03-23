@@ -28,3 +28,22 @@ int		Fixed::getRawBits() const{
 Fixed::~Fixed(){
 	std::cout<<"Destructor called"<<std::endl;
 };
+
+Fixed::Fixed(const int value){
+	
+}
+
+Fixed &Fixed::operator<<(Fixed const &rhs)
+{
+	
+}
+
+float Fixed::toFloat(void) const
+{
+	return float();
+};
+
+int Fixed::toInt(void) const
+{
+	return 0;
+}
