@@ -28,16 +28,16 @@ public:
 //increment operators
 
 	Fixed	&operator++();
-	Fixed	&operator++(int);
+	Fixed	operator++(int);
 	Fixed	&operator--();
-	Fixed	&operator--(int);
+	Fixed	operator--(int);
 
 //###########################################
 
 	static Fixed &min(Fixed &a, Fixed &b);
-	static Fixed &min(Fixed &a, Fixed &b, int);
+	static Fixed const &min(Fixed const &a, Fixed const &b);
 	static Fixed &max(Fixed &a, Fixed &b);
-	static Fixed &max(Fixed &a, Fixed &b, int);
+	static Fixed const &max(Fixed const &a, Fixed const &b);
 
 //###########################################
 
@@ -48,7 +48,6 @@ public:
 	~Fixed( void );
 
 	Fixed & operator=(Fixed const & other);
-	std::ostream & operator<<(std::ostream & stream, const Fixed &fixed);
 
 	float	toFloat( void ) const;
 	int		toInt( void ) const;
@@ -58,6 +57,6 @@ private:
 	static const int _fractional = 8;
 
 };
-
+	std::ostream & operator<<(std::ostream & stream, const Fixed &fixed);
 
 #endif
