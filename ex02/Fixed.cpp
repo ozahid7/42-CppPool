@@ -4,57 +4,57 @@
 
 bool Fixed::operator==(Fixed const &other)
 {
-	return _value == other._value;
+	return _integer == other._integer;
 }
 
 bool Fixed::operator>(Fixed const &other)
 {
-	return _value > other._value;
+	return _integer > other._integer;
 }
 
 bool Fixed::operator<(Fixed const &other)
 {
-	return _value < other._value;
+	return _integer < other._integer;
 }
 
 bool Fixed::operator>=(Fixed const &other)
 {
-	return _value >= other._value;
+	return _integer >= other._integer;
 }
 
 bool Fixed::operator<=(Fixed const &other)
 {
-	return _value <= other._value;
+	return _integer <= other._integer;
 }
 
 bool Fixed::operator!=(Fixed const &other)
 {
-	return _value != other._value;
+	return _integer != other._integer;
 }
 
 //arithmetic operators
 
 Fixed &Fixed::operator+(Fixed const &other)
 {
-	_value = _value + other._value;
+	_integer = _integer + other._integer;
 	return *this;
 }
 
 Fixed &Fixed::operator-(Fixed const &other)
 {
-	_value = _value - other._value;
+	_integer = _integer - other._integer;
 	return *this;
 }
 
 Fixed &Fixed::operator*(Fixed const &other)
 {
-	_value = _value * other._value;
+	_integer = _integer * other._integer;
 	return *this;
 }
 
 Fixed &Fixed::operator/(Fixed const &other)
 {
-	_value = _value / other._value;
+	_integer = _integer / other._integer;
 	return *this;
 }
 
@@ -62,62 +62,62 @@ Fixed &Fixed::operator/(Fixed const &other)
 
 Fixed &Fixed::operator++()
 {
-	++_value;
+	++_integer;
 	return *this;
 }
 
 Fixed &Fixed::operator++(int)
 {
 	Fixed tmp;
-	_value++;
+	_integer++;
 	return tmp;
 }
 Fixed &Fixed::operator--()
 {
-	--_value;
+	--_integer;
 	return *this;
 }
 Fixed &Fixed::operator--(int)
 {
 	Fixed tmp;
 
-	--_value;
+	--_integer;
 	return tmp;
 }
 
 //#########################################
 
-int Fixed::min(int &a, int &b)
+Fixed &Fixed::min(Fixed &a, Fixed &b)
 {
-	if (a < b)
+	if (a._integer < b._integer)
 		return a;
 	return b;
 }
 
-int Fixed::min(int &a, int &b, int)
+Fixed &Fixed::min(Fixed &a, Fixed &b, int)
 {
-	if (a < b)
+	if (a._integer < b._integer)
 		return a;
 	return b;
 }
 
-int Fixed::max(int &a, int &b)
+Fixed &Fixed::max(Fixed &a, Fixed &b)
 {
-	if (a > b)
+	if (a._integer > b._integer)
 		return a;
 	return b;
 }
 
-int Fixed::max(int &a, int &b, int)
+Fixed &Fixed::max(Fixed &a, Fixed &b, int)
 {
-	if (a > b)
+	if (a._integer > b._integer)
 		return a;
 	return b;
 }
 
 //#########################################
 
-Fixed::Fixed() : _value(0){
+Fixed::Fixed(){
 	std::cout<<"Default constructor called"<<std::endl;
 };
 
@@ -128,10 +128,39 @@ Fixed::Fixed(Fixed const & other){
 
 Fixed & Fixed::operator=(Fixed const & other){
 	std::cout<<"Copy assignment operator called"<<std::endl;
-	this->_value = other._value;
+	this->_integer = other._integer;
 	return *this;
 }
 
 Fixed::~Fixed(){
 	std::cout<<"Destructor called"<<std::endl;
 };
+
+Fixed::Fixed(const int a){
+	std::cout<<"Int constructor called"<<std::endl;
+	_integer = a << _fractional;
+}
+
+Fixed::Fixed(const float b){
+	std::cout<<"Float constructor called"<<std::endl;
+	_integer = roundf(b * (1 << _fractional));
+}
+
+std::ostream &operator<<(std::ostream &stream, const Fixed &fixed){
+	stream << fixed.toFloat();
+	return stream;
+}
+
+
+float Fixed::toFloat(void) const{
+	return  (float)(_integer) / (1 << _fractional);
+};
+
+int Fixed::toInt(void) const{
+ 	return _integer >> _fractional;
+}
+
+// std::ostream &operator<<(std::ostream &stream, const Fixed &fixed){
+// 	stream << fixed.toFloat();
+// 	return stream;
+// }

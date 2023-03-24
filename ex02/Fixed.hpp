@@ -2,6 +2,8 @@
 #define FIXED_HPP
 
 #include <iostream>
+#include <cmath>
+
 
 class Fixed {
 
@@ -32,22 +34,27 @@ public:
 
 //###########################################
 
-	static int min(int &a, int &b);
-	static int min(int &a, int &b, int);
-	static int max(int &a, int &b);
-	static int max(int &a, int &b, int);
+	static Fixed &min(Fixed &a, Fixed &b);
+	static Fixed &min(Fixed &a, Fixed &b, int);
+	static Fixed &max(Fixed &a, Fixed &b);
+	static Fixed &max(Fixed &a, Fixed &b, int);
 
 //###########################################
 
 	Fixed( void );
+	Fixed(const int a);
 	Fixed(const float b);
 	Fixed(Fixed const & src);
 	~Fixed( void );
 
 	Fixed & operator=(Fixed const & other);
+	std::ostream & operator<<(std::ostream & stream, const Fixed &fixed);
+
+	float	toFloat( void ) const;
+	int		toInt( void ) const;
 	
 private:
-	int _value;
+	int _integer;
 	static const int _fractional = 8;
 
 };

@@ -4,3 +4,5 @@ ortodox
 *.DS_Store
 .gitignore
 *.o
+test.cpp
+a.out

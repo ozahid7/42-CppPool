@@ -6,7 +6,7 @@ HEADERS = Fixed.hpp\
 
 C++ = c++
 
-CPP_FLAGS = #-Wall -Wextra -Werror -std=c++98
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp Fixed.cpp\
 
