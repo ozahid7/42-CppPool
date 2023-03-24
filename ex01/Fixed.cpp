@@ -1,7 +1,7 @@
 #include "Fixed.hpp"
 
 
-Fixed::Fixed(){
+Fixed::Fixed(): _integer(0){
 	std::cout<<"Default constructor called"<<std::endl;
 };
 
@@ -44,4 +44,11 @@ int Fixed::toInt(void) const{
  	return _integer >> _fractional;
 }
 
+void	Fixed::setRawBits(int const raw){
+	_integer = raw;
+}
 
+int		Fixed::getRawBits() const{
+	std::cout<<"getRawBits member function called"<<std::endl;
+	return this->_integer;
+};
