@@ -1,7 +1,7 @@
 #include "Fixed.hpp"
 
 
-Fixed::Fixed() : _integer(0){
+Fixed::Fixed(){
 	std::cout<<"Default constructor called"<<std::endl;
 };
 
@@ -21,13 +21,17 @@ Fixed::~Fixed(){
 };
 
 Fixed::Fixed(const int a){
+	std::cout<<"before##########"<<a<<std::endl;
 	std::cout<<"Int constructor called"<<std::endl;
 	_integer = a << _fractional;
+	std::cout<<"after##########"<<_integer<<std::endl;
 }
 
 Fixed::Fixed(const float b){
+	std::cout<<"before##########"<<b<<std::endl;
 	std::cout<<"Float constructor called"<<std::endl;
 	_integer = roundf(b * (1 << _fractional));
+	std::cout<<"after##########"<<_integer<<std::endl;
 }
 
 std::ostream &operator<<(std::ostream &stream, const Fixed &fixed){
