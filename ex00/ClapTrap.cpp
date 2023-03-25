@@ -63,3 +63,7 @@ ClapTrap::ClapTrap(std::string name){
 	_energyPoints = 10;
 	_attackDamage = 1;
 }
+
+ClapTrap::ClapTrap(ClapTrap &other){
+	
+}
