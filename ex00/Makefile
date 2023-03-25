@@ -1,15 +1,15 @@
-NAME = Moarbrainz
+NAME = aaaaandopen
 
 OBJECTS = objects
 
-HEADERS = Zombie.hpp  
+HEADERS = ClapTrap.hpp  
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp\
- 		zombieHorde.cpp Zombie.cpp\
+ 		ClapTrap.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
