@@ -15,9 +15,19 @@ public:
 	void			attack(const std::string& target);
 	void			takeDamage(unsigned int amount);
 	void			beRepaired(unsigned int amount);
-	unsigned int	gethit();
-	unsigned int	getenerg();
-private:
+
+	/////////////////////SETERS
+	void setname(std::string name);
+	void sethitpoint(unsigned int);
+	void setenergypoint(unsigned int);
+	void setattackdamage(unsigned int);
+	//////////////////////GETERS
+	std::string	getname();
+	unsigned int gethitpoint();
+	unsigned int getenergypoint();
+	unsigned int getattackdamage();
+
+protected:
 	std::string _name;
 	unsigned int _hitPoints;
 	unsigned int _energyPoints;
