@@ -1,15 +1,15 @@
-NAME = Moarbrainz
+NAME = Repetitive
 
 OBJECTS = objects
 
-HEADERS = Zombie.hpp  
+HEADERS = ClapTrap.hpp  ScavTrap.hpp FragTrap.hpp\
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp\
- 		zombieHorde.cpp Zombie.cpp\
+ 		ClapTrap.cpp ScavTrap.cpp FragTrap.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
