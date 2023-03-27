@@ -13,6 +13,7 @@ ClapTrap::~ClapTrap(){
 }
 
 ClapTrap &ClapTrap::operator=(ClapTrap const &other){
+	std::cout<<"ClapTrap operator overload Called"<<std::endl;
 	_attackDamage = other._attackDamage;
 	_hitPoints = other._hitPoints;
 	_energyPoints = other._energyPoints;
@@ -49,47 +50,16 @@ void ClapTrap::beRepaired(unsigned int amount){
 }
 
 ClapTrap::ClapTrap(std::string name){
+	std::cout<<"ClapTrap Paramitrised Constructor Called"<<std::endl;
 	_name = name;
 }
 
 ClapTrap::ClapTrap(ClapTrap &other){
+	std::cout<<"ClapTrap Copy Constructor Called"<<std::endl;
 	*this = other;
 }
 
-
-////////////getters//////////////////
-
-unsigned int ClapTrap::getenergypoint()
+unsigned int ClapTrap::getattackdam()
 {
-	return _energyPoints;
-}
-
-unsigned int ClapTrap::gethitpoint(){
-	return _hitPoints;
-}
-
-unsigned int ClapTrap::getattackdamage(){
 	return _attackDamage;
-}
-
-std::string ClapTrap::getname(){
-	return _name;
-}
-
-///////////////setters///////////////
-
-void ClapTrap::setname(std::string name){
-	_name = name;
-}
-
-void ClapTrap::setattackdamage(unsigned int damage){
-	_attackDamage = damage;
-}
-
-void ClapTrap::setenergypoint(unsigned int energy){
-	_energyPoints = energy;
-}
-
-void ClapTrap::sethitpoint(unsigned int hit){
-	_hitPoints = hit;
 }

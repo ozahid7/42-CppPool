@@ -14,10 +14,9 @@ public:
 	ScavTrap &operator=(ScavTrap const &other);
 
 	void guardGate();
+	unsigned int gethit();
+	unsigned int getenerg();
 	void attack(const std::string& target);
-
-private:
-
 };
 
 #endif

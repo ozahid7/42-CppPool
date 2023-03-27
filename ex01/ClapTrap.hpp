@@ -8,24 +8,14 @@ public:
 	ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(ClapTrap &other);
-	~ClapTrap();
+	virtual ~ClapTrap();
 
 	ClapTrap &operator=(ClapTrap const &other);
 
-	void			attack(const std::string& target);
+	virtual void			attack(const std::string& target);
 	void			takeDamage(unsigned int amount);
 	void			beRepaired(unsigned int amount);
-
-	/////////////////////SETERS
-	void setname(std::string name);
-	void sethitpoint(unsigned int);
-	void setenergypoint(unsigned int);
-	void setattackdamage(unsigned int);
-	//////////////////////GETERS
-	std::string	getname();
-	unsigned int gethitpoint();
-	unsigned int getenergypoint();
-	unsigned int getattackdamage();
+	unsigned int	getattackdam();
 
 protected:
 	std::string _name;

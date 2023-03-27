@@ -13,6 +13,7 @@ ClapTrap::~ClapTrap(){
 }
 
 ClapTrap &ClapTrap::operator=(ClapTrap const &other){
+	std::cout<<"ClapTrap operator overload Called"<<std::endl;
 	_attackDamage = other._attackDamage;
 	_hitPoints = other._hitPoints;
 	_energyPoints = other._energyPoints;
@@ -49,9 +50,16 @@ void ClapTrap::beRepaired(unsigned int amount){
 }
 
 ClapTrap::ClapTrap(std::string name){
+	std::cout<<"ClapTrap Pramitrised Constructor Called"<<std::endl;
 	_name = name;
 }
 
 ClapTrap::ClapTrap(ClapTrap &other){
+	std::cout<<"ClapTrap copy Constructor Called"<<std::endl;
 	*this = other;
+}
+
+unsigned int ClapTrap::getattackdam()
+{
+	return _attackDamage;
 }

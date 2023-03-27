@@ -17,6 +17,7 @@ public:
 	void			beRepaired(unsigned int amount);
 	unsigned int	gethit();
 	unsigned int	getenerg();
+	unsigned int	getattackdam();
 private:
 	std::string _name;
 	unsigned int _hitPoints;
