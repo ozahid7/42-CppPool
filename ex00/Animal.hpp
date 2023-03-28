@@ -5,7 +5,13 @@
 
 class Animal{
 public:
+	Animal();
+	Animal(Animal const &other);
+	~Animal();
 
+	Animal &operator=(Animal const &other);
+	
+	void makeSound();
 protected:
 	std::string type;
 
