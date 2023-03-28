@@ -10,8 +10,11 @@ public:
 	~Dog();
 
 	Dog &operator=(Dog const &other);
-private:
 
+	std::string getType();
+	void	makeSound();
+private:
+	std::string _type;
 };
 
 #endif

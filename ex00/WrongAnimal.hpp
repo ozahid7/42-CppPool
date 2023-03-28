@@ -12,6 +12,9 @@ public:
 	~WrongAnimal();
 
 	WrongAnimal &operator=(WrongAnimal const &other);
+
+	std::string getType();
+	void	makeSound();
 	
 protected:
 	std::string type;

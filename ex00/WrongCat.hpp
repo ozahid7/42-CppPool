@@ -11,8 +11,10 @@ public:
 
 	WrongCat &operator=(WrongCat const &other);
 	
-protected:
-	std::string type;
+	std::string getType();
+	void	makeSound();
+private:
+	std::string _type;
 
 };
 
