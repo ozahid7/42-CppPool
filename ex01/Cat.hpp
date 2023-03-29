@@ -14,6 +14,7 @@ public:
 
 	std::string getType() const;
 	void	makeSound() const;
+	Brain	getbrain();
 private:
 	std::string _type;
 	Brain*		_brain;
