@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-#include <iostream>
-
 class WrongAnimal{
 public:
 	WrongAnimal();

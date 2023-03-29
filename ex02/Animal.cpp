@@ -1,5 +1,9 @@
 #include "Animal.hpp"
 
+std::string Animal::getType() const{
+	return type;
+}
+
 Animal::Animal(){
 	std::cout<<"Animal default constructor called"<<std::endl;
 	type = "Animal";

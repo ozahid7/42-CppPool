@@ -16,13 +16,14 @@ WrongCat::~WrongCat(){
 
 WrongCat &WrongCat::operator=(WrongCat const &other){
 	std::cout<<"WrongCat copy operator called"<<std::endl;
+	this->_type = other._type;
 	return *this;
 }
 
-std::string WrongCat::getType(){
+std::string WrongCat::getType() const{
 	return _type;
 }
 
-void	WrongCat::makeSound(){
-	std::cout<<"--------WrongMewo--------"<<std::endl;
+void	WrongCat::makeSound() const{
+	std::cout<<"wrong sound of cat"<<std::endl;
 }

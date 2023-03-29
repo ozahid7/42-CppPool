@@ -17,9 +17,10 @@ Cat::~Cat(){
 }
 
 Cat &Cat::operator=(Cat const &other){
-	std::cout<<"Cat copy operator called"<<std::endl;
+	std::cout<<"Cat copy operator overload called"<<std::endl;
 	_type = other._type;
-	*_brain = *other._brain;
+	_brain = new Brain;
+	*this->_brain = *other._brain;
 	return *this;
 }
 
@@ -31,7 +32,7 @@ void	Cat::makeSound() const{
 	std::cout<<"Sound of Cat"<<std::endl;
 }
 
-Brain Cat::getbrain()
+Brain *Cat::getbrain()
 {
-	return Brain();
+	return _brain;
 }

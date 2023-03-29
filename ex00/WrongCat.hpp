@@ -2,8 +2,9 @@
 #define WRONGCAT_HPP
 
 #include <iostream>
+#include "WrongAnimal.hpp"
 
-class WrongCat{
+class WrongCat: public WrongAnimal{
 public:
 	WrongCat();
 	WrongCat(WrongCat const &other);
@@ -11,8 +12,8 @@ public:
 
 	WrongCat &operator=(WrongCat const &other);
 	
-	std::string getType();
-	void	makeSound();
+	std::string getType() const;
+	void	makeSound() const;
 private:
 	std::string _type;
 

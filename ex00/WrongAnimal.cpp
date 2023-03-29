@@ -1,7 +1,7 @@
 #include "WrongAnimal.hpp"
 
 void WrongAnimal::makeSound(){
-	std::cout<<"What type of WrongAnimal"<<std::endl;
+	std::cout<<"Wrong Animal sound"<<std::endl;
 }
 
 std::string WrongAnimal::getType(){

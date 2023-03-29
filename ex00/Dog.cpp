@@ -20,10 +20,10 @@ Dog &Dog::operator=(Dog const &other){
 	return *this;
 }
 
-std::string Dog::getType(){
+std::string Dog::getType() const{
 	return _type;
 }
 
-void	Dog::makeSound(){
+void	Dog::makeSound() const{
 	std::cout<<"Soound of Dog"<<std::endl;
 }
