@@ -3,6 +3,7 @@
 Cat::Cat(){
 	std::cout<<"Cat default constructor called"<<std::endl;
 	_type = "Cat";
+	_brain = new Brain;
 }
 
 Cat::Cat(Cat const &other){
@@ -12,6 +13,7 @@ Cat::Cat(Cat const &other){
 
 Cat::~Cat(){
 	std::cout<<"Cat destructor called"<<std::endl;
+	delete _brain;
 }
 
 Cat &Cat::operator=(Cat const &other){

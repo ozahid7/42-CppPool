@@ -2,6 +2,7 @@
 #define CAT_HPP
 
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Cat: public Animal{
 public:
@@ -15,6 +16,7 @@ public:
 	void	makeSound() const;
 private:
 	std::string _type;
+	Brain*		_brain;
 
 };
 

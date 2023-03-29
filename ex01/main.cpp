@@ -4,24 +4,20 @@
 
 int main()
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const WrongAnimal* w = new WrongCat;
-	const Animal* i = new Cat();
+	int i;
+	Animal *animals[20];
 
-	std::cout << j->getType() << " " << std::endl;
-	j->makeSound();
-	std::cout << i->getType() << " " << std::endl;
-	i->makeSound();
-	std::cout << meta->getType() << " " << std::endl;
-	meta->makeSound();
-	std::cout << w->getType() << " " << std::endl;
-	w->makeSound();
+	for(i = 0; i < 20; i++){
+		if (i < 10){
+			animals[i] = new Cat;
+		}
+		if (i > 9){
+			animals[i] = new Dog;
+		}
+	}
+	for (i = 0; i < 20; i++){
+		delete animals[i];
+	}
 
-
-	delete meta;
-	delete j;
-	delete i;
-	delete w;
-return 0;
+	return 0;
 }

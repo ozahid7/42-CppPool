@@ -3,6 +3,7 @@
 Dog::Dog(){
 	std::cout<<"Dog default constructor called"<<std::endl;
 	_type = "Dog";
+	_brain = new Brain;
 }
 
 Dog::Dog(Dog const &other){
@@ -12,6 +13,7 @@ Dog::Dog(Dog const &other){
 
 Dog::~Dog(){
 	std::cout<<"Dog destructor called"<<std::endl;
+	delete _brain;
 }
 
 Dog &Dog::operator=(Dog const &other){
