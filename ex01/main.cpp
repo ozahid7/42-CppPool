@@ -24,8 +24,16 @@ int main()
 	// for (i = 0; i < 20; i++){
 	// 	delete animals[i];
 	// }
+	// Cat basic;
+	// {
+	// 	Cat tmp = basic;
+	// }
+
 	Cat a;
+	(a.getbrain())->setidea("-------idea0-------", 0);
 	Cat b(a);
+
+	std::cout<<(b.getbrain())->getidea(0)<<std::endl;
 
 	return 0;
 }

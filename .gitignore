@@ -5,3 +5,4 @@ Brain
 Abstract
 .gitignore
 *.o
+.gitignore
