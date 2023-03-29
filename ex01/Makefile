@@ -7,7 +7,7 @@ HEADERS =  Animal.hpp Brain.hpp Cat.hpp Dog.hpp WrongCat.hpp\
 
 C++ = c++
 
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
+CPP_FLAGS = #-Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp Brain.cpp Animal.cpp Cat.cpp Dog.cpp WrongCat.cpp\
  		WrongAnimal.cpp\
