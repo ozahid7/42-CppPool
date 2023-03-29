@@ -15,8 +15,10 @@ Brain::Brain(Brain const &other){
 
 Brain &Brain::operator=(Brain const &other){
 	std::cout<<"Brain Operator Overload Called"<<std::endl;
-	for (int i = 0; i < 100; i++)
-		_ideas[i] = other._ideas[i];
+	// for (int i = 0; i < 100; i++){
+	// 	_ideas[i] = other._ideas[i];
+	// }
+	(void)other;
 	return *this;
 }
 

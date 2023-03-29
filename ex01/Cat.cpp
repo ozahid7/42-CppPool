@@ -19,7 +19,9 @@ Cat::~Cat(){
 Cat &Cat::operator=(Cat const &other){
 	std::cout<<"Cat copy operator called"<<std::endl;
 	_type = other._type;
-	*_brain = *other._brain;
+	printf("%p | %p \n", *_brain, *other._brain);
+	if (_brain)
+		std::cout<<"yes \n";
 	return *this;
 }
 
