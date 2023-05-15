@@ -8,22 +8,32 @@ class Bureaucrat{
 public:
 	Bureaucrat();
 	Bureaucrat(Bureaucrat &other);
+	Bureaucrat(std::string name, int grade);
 	~Bureaucrat();
 
 	Bureaucrat &operator=(Bureaucrat const &other);
-private:
-	std::string const	name;
-	int					grade;
-	class				GradeTooHighException: std::exception{
-		
+	std::ostream &operator<<(std::ostream &stream, Bureaucrat const &other);
+
+	class				GradeTooHighException: public std::exception{
+		public:
+		const char *what() const throw (){
+			return ("Grade is to high");
+		}
 	};
-	class				GradeTooLowException: std::exception{
-		
+	class				GradeTooLowException: public std::exception{
+		public:
+		const char *what() const throw(){
+			return ("Grade is too low");
+		}
 	};
 	const std::string	getname();
-	const int			getgrade();
+	int					getgrade();
 	void				incrementgrade();
 	void				decrementgrade();
+
+private:
+	std::string const	_name;
+	int					_grade;
 };
 
 #endif

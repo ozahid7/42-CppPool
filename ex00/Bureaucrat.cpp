@@ -2,46 +2,62 @@
 
 Bureaucrat::Bureaucrat()
 {
-	
+	std::cout<<"Default constructor is called"<<std::endl;
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat &other)
 {
+	std::cout<<"copy constructor is called"<<std::endl;
+	*this = other;
+}
 
+Bureaucrat::Bureaucrat(std::string name, int grade): _name(name), _grade(grade)
+{
+	std::cout<<"Paramitrised constructor is called"<<std::endl;
 }
 
 Bureaucrat::~Bureaucrat()
 {
-	 
+ 	std::cout<<"Destructor is called"<<std::endl;
+
 }
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &other)
 {
-	
+	std::cout<<"equal operator overload is called"<<std::endl;
+	this->_grade = other._grade;
+	return (*this);
+}
+
+std::ostream &Bureaucrat::operator<<(std::ostream &stream, Bureaucrat const &other)
+{
+	stream << other.
+	return stream;
 }
 
 const std::string Bureaucrat::getname()
 {
-	return name;
+	return _name;
 }
 
-const int Bureaucrat::getgrade()
+int Bureaucrat::getgrade()
 {
-	return grade;
+	return _grade;
 }
 
 void Bureaucrat::incrementgrade()
 {
-	if (grade > 1)
-		grade--;
+	if (_grade > 1)
+		_grade--;
 	else
-		throw "grade is les than 1";
+		throw Bureaucrat::GradeTooHighException();
 }
 
 void Bureaucrat::decrementgrade()
 {
-	if(grade < 150)
-		grade++;
+	if(_grade < 150)
+		_grade++;
 	else
-		throw ;
+		throw Bureaucrat::GradeTooLowException();
 }
+
