@@ -3,12 +3,12 @@
 
 int main(){
 	try{
-		Bureaucrat b1("b1", 2);
+		Bureaucrat b1("b1", 5);
 		Form f1("f1", 3, 150);
+
 		f1.beSigned(b1);
-		b1.signForm(f1);
 	}
 	catch(std::exception &e){
-		std::cout<<e.what();
+		std::cout<<e.what()<<std::endl;
 	}
 }

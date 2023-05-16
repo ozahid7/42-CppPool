@@ -77,9 +77,22 @@ const char *Bureaucrat::GradeTooHighException::what() const throw()
 
 void Bureaucrat::signForm(Form &form)
 {
-	if (form.is_signed() == true)
-		std::cout<<_name<<" signed "<<form.get_form_name();
-	else
-		std::cout<<_name<<" couldn't sign "<<form.get_form_name()<<" becausse ";
+	try
+	{
 		form.beSigned(*this);
+		std::cout << this->_name << " signed " << form.get_form_name() << std::endl;
+
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << this->_name << " couldn't sign " << form.get_form_name() << " because " << e.what() << std::endl;
+	}
+	
+// 	if (form.is_signed() == true)
+// 		std::cout<<_name<<" signed "<<form.get_form_name();
+// 	else
+// 	{
+// 		std::cout<<_name<<" couldn't sign "<<form.get_form_name()<<" becausse ";
+// 		form.beSigned(*this);
+// 	}
 }

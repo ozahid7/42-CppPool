@@ -19,7 +19,7 @@ Form::Form(std::string name, int grade, int exec): _form_name(name), _grade_sign
 		throw 	GradeTooLowException();
 }
 
-Form::Form(Form &other):_form_name(other._form_name), _grade_sign(other._grade_sign), _execute_it(other.)
+Form::Form(Form &other):_form_name(other._form_name), _grade_sign(other._grade_sign), _execute_it(other._execute_it)
 {
 	*this = other;
 }
