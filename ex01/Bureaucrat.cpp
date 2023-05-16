@@ -80,5 +80,6 @@ void Bureaucrat::signForm(Form &form)
 	if (form.is_signed() == true)
 		std::cout<<_name<<" signed "<<form.get_form_name();
 	else
-		std::cout<<_name<<" couldn't sign "<<form.get_form_name()<<" becausse "<<form.beSigned()
+		std::cout<<_name<<" couldn't sign "<<form.get_form_name()<<" becausse ";
+		form.beSigned(*this);
 }

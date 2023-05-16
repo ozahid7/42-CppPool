@@ -3,17 +3,10 @@
 
 int main(){
 	try{
-		// Bureaucrat b1("b1", -1);
-		Bureaucrat b2("b2", 149);
-		b2.decrementgrade();
-		b2.decrementgrade();
-		std::cout<<b2<<std::endl;
-		// b2.decrementgrade();
-		// std::cout<<b1<<std::endl;
-		// b1.incrementgrade();
-		// b1.incrementgrade();
-		// b1.incrementgrade();
-		// b1.incrementgrade();
+		Bureaucrat b1("b1", 2);
+		Form f1("f1", 3, 150);
+		f1.beSigned(b1);
+		b1.signForm(f1);
 	}
 	catch(std::exception &e){
 		std::cout<<e.what();
