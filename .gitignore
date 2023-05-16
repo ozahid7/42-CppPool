@@ -1,8 +1,8 @@
 objects
 .vscode
 *.DS_Store
-Brain
-Abstract
 .gitignore
+Form
+AForm
+Bureaucrat
 *.o
-.gitignore

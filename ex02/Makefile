@@ -1,15 +1,16 @@
-NAME = aaaaandopen
+NAME = AForm
 
 OBJECTS = objects
 
-HEADERS = ClapTrap.hpp  
+HEADERS = Bureaucrat.hpp Form.hpp
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp\
- 		ClapTrap.cpp\
+ 		Bureaucrat.cpp\
+		Form.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
