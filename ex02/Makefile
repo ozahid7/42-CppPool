@@ -2,7 +2,7 @@ NAME = AForm
 
 OBJECTS = objects
 
-HEADERS = Bureaucrat.hpp Form.hpp
+HEADERS = Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp
 
 C++ = c++
 
@@ -10,7 +10,7 @@ CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp\
  		Bureaucrat.cpp\
-		Form.cpp\
+		AForm.cpp ShrubberyCreationForm.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 

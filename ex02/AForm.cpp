@@ -1,4 +1,4 @@
-#include "Form.hpp"
+#include "AForm.hpp"
 
 AForm::AForm(): _form_name("name"), _grade_sign(150), _execute_it(150)
 {
@@ -71,3 +71,4 @@ std::ostream &operator<<(std::ostream &stream, AForm  &form)
 	stream << form.get_form_name()<<" "<<form.get_grade_sign()<<" "<<form.get_execute_it()<<" "<<form.is_signed();
 	return stream;
 }
+
