@@ -14,22 +14,29 @@ public:
 
 	class GradeTooHighException: public std::exception{
 	public:
-		const char *what() const throw();
+		const char *what() const throw(){
+			return ("Grade to High");
+		}
 	};
 	class GradeTooLowException: public std::exception{
 	public:
-		const char *what() const throw();
+		const char *what() const throw(){
+			return ("Grade to Low");
+		}
 	};
 	const std::string	get_form_name();
 	bool				is_signed();
-	const int			get_form_grade();
+	const int			get_grade_sign();
+	const int			get_execute_it();
+	void				beSigned(Bureaucrat &bureau);
 
 private:
 	const std::string	_form_name;
 	bool				_signed;
-	int					_form_grade;
+	const int			_grade_sign;
+	const int			_execute_it;
 };
 
-std::ostream &operator<<(std::ostream &stream, const Form &form);
+std::ostream &operator<<(std::ostream &stream, Form &form);
 
 #endif

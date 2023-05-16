@@ -2,14 +2,21 @@
 
 Form::Form()
 {
+	_signed = false;
 }
 
 Form::~Form()
 {
+
 }
 
-Form::Form(std::string name, int grade): _form_name(name), _form_grade(grade)
+Form::Form(std::string name, int grade): _form_name(name), _grade_sign(grade)
 {
+	_signed = false;
+	if (_grade_sign < 1)
+		throw	GradeTooHighException();
+	else if (_grade_sign > 250)
+		throw 	GradeTooLowException();
 }
 
 Form::Form(Form &other)
@@ -19,7 +26,6 @@ Form::Form(Form &other)
 
 Form &Form::operator=(Form const &other)
 {
-	this->_form_grade = other._form_grade;
 	this->_signed = other._signed;
 	return (*this);
 }
@@ -34,12 +40,27 @@ bool Form::is_signed()
 	return _signed;
 }
 
-const int Form::get_form_grade()
+const int Form::get_grade_sign()
 {
-	return _form_grade;
+	return _grade_sign;
 }
 
-std::ostream &operator<<(std::ostream &stream, const Form &form)
+const int Form::get_execute_it()
 {
+	return _execute_it;
+}
+
+void Form::beSigned(Bureaucrat &bureau)
+{
+	if (bureau.getgrade() <= _grade_sign)
+		_signed = true;
+	else
+		throw GradeTooLowException();
 	
+}
+
+std::ostream &operator<<(std::ostream &stream, Form  &form)
+{
+	stream << form.get_form_name()<<" "<<form.get_grade_sign()<<" "<<form.get_execute_it()<<" "<<form.is_signed();
+	return stream;
 }
