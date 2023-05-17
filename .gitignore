@@ -4,5 +4,6 @@ objects
 .gitignore
 Form
 AForm
+test_shrubbery
 Bureaucrat
 *.o
