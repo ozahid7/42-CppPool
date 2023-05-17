@@ -1,9 +1,10 @@
 #include "Bureaucrat.hpp"
 #include "ShrubberyCreationForm.hpp"
-
+#include "RobotomyRequestForm.hpp"
 
 int main(){
-	ShrubberyCreationForm a("test", 12, 3);
+	// ShrubberyCreationForm a("test", 12, 3);
+	RobotomyRequestForm b("robot", 6, 8);
 	// try{
 	// 	Bureaucrat b1("b1", 2);
 	// 	AForm f1("f1", 3, 150);

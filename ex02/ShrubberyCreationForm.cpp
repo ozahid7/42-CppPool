@@ -12,22 +12,26 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other)
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string name, int sign_grade, int execgrade): AForm::AForm(name , sign_grade, execgrade)
 {
-	std::ofstream file("target_shrubbery");
+	std::ofstream file(name + "_shrubbery");
 
 	if (file.is_open()){
-		file <<         "			/&& &&  & && \n "
-				     "   		&///&//|& ()|/ @ \n"
-				    "   		&///(/&/&||/& /_/)_&/_& \n"
-				    "  	 &_//_&&_// |& |&&/&__%_/_&& \n"
-				  "  	 &_//_&&_// |& |&&/&__%_/_& && \n"
-				"   	&&   && & &| &| /& & % ()& /&& \n "
-				 "      ()&_---()&//&//|&&-&&--%---()~ \n "
-				    "     	 		||| \n"
-				             "    			||| \n"
-				             "    			||| \n"
-				            "     			||| \n"
-				       " 			, -=-~  .-^-=- \n";
+		file << "                          *\n"
+				"                        *****\n"
+				"                      *********\n"
+				"                    **************\n"
+				"                 ********************\n"
+				"              **************************\n"
+				"               ************************\n "
+				"                 *******************\n"
+				"                    *************\n"
+				"                         ***\n"
+				"                         ***\n"
+				"                         ***\n"
+				"                         ***\n"
+				"                       *******\n";
 	}
+	else
+		std::cout<<"File Error"<<std::endl;
 
 	
 }
