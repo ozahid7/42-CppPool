@@ -10,15 +10,9 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 }
 
-RobotomyRequestForm::RobotomyRequestForm(std::string name, int sign_grade, int exec_grade): AForm::AForm(name, sign_grade, exec_grade)
+RobotomyRequestForm::RobotomyRequestForm(std::string name): AForm::AForm(name, 72, 45)
 {
-	std::srand((unsigned int)(std::time(nullptr)));
-	int nb = std::rand();
-	if (nb % 2 == 1){
-		std::cout<<name<<" has been robotomized "<<std::endl;
-	}else{
-		std::cout<<" The robotomy failed "<<std::endl;
-	}
+	_target = name;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other)
@@ -30,4 +24,19 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm &other)
 {
 	(void)other;
 	return (*this);
+}
+
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
+{
+	if(!is_signed() || executor.getgrade() < get_grade_exec())
+		throw GradeTooLowException();
+	else{
+		std::srand((unsigned int)(std::time(nullptr)));
+		int nb = std::rand();
+		if (nb % 2 == 1){
+			std::cout<<_target + "_Robot"<<" has been robotomized "<<std::endl;
+		}else{
+			std::cout<<" The robotomy failed "<<std::endl;
+	}
+	}
 }

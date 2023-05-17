@@ -35,7 +35,7 @@ const std::string AForm::get_form_name()
 	return _form_name;
 }
 
-bool AForm::is_signed()
+bool AForm::is_signed() const
 {
 	return _signed;
 }
@@ -45,14 +45,14 @@ void AForm::set_is_signed(bool is)
 	_signed = is;
 }
 
-int AForm::get_grade_sign()
+int AForm::get_grade_sign() const
 {
 	return _grade_sign;
 }
 
-int AForm::get_execute_it()
+int AForm::get_grade_exec() const
 {
-	return _execute_it;
+	return  _grade_exec;
 }
 
 void AForm::beSigned(Bureaucrat &bureau)
@@ -71,4 +71,5 @@ std::ostream &operator<<(std::ostream &stream, AForm  &form)
 	stream << form.get_form_name()<<" "<<form.get_grade_sign()<<" "<<form.get_execute_it()<<" "<<form.is_signed();
 	return stream;
 }
+
 

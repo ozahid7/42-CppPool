@@ -26,17 +26,18 @@ public:
 		}
 	};
 	const std::string	get_form_name();
-	bool				is_signed();
+	virtual void	execute (Bureaucrat const & executor)  const = 0;
+	bool				is_signed() const;
 	void				set_is_signed(bool is);
-	int					get_grade_sign();
-	int					get_execute_it();
+	int					get_grade_sign() const;
+	int					get_grade_exec() const;
 	void				beSigned(Bureaucrat &bureau);
 
 private:
 	const std::string	_form_name;
 	bool				_signed;
 	const int			_grade_sign;
-	const int			_execute_it;
+	const int			_grade_exec;
 };
 
 std::ostream &operator<<(std::ostream &stream, AForm &form);

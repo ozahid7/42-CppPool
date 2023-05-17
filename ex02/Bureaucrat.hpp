@@ -24,7 +24,7 @@ public:
 		const char *what() const throw();
 	};
 	const std::string	getname();
-	int					getgrade();
+	int					getgrade() const;
 	void				incrementgrade();
 	void				decrementgrade();
 	void				signForm(AForm &form);

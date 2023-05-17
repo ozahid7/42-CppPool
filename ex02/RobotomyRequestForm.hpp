@@ -7,15 +7,15 @@ class RobotomyRequestForm: public AForm{
 public:
 	RobotomyRequestForm();
 	~RobotomyRequestForm();
-	RobotomyRequestForm(std::string name, int sign_grade, int exec_grade);
+	RobotomyRequestForm(std::string name);
 	RobotomyRequestForm(RobotomyRequestForm &other);
 
 	RobotomyRequestForm &operator=(RobotomyRequestForm &other);
 
-	static int	get_nb();
+	void	execute (Bureaucrat const & executor)  const;
 
 private:
-	static int	_nb;
+	std::string _target;
 };
 
 #endif

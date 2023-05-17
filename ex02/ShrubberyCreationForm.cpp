@@ -10,29 +10,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other)
 	*this = other;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string name, int sign_grade, int execgrade): AForm::AForm(name , sign_grade, execgrade)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string name): AForm::AForm(name , 145, 137)
 {
-	std::ofstream file(name + "_shrubbery");
-
-	if (file.is_open()){
-		file << "                          *\n"
-				"                        *****\n"
-				"                      *********\n"
-				"                    **************\n"
-				"                 ********************\n"
-				"              **************************\n"
-				"               ************************\n "
-				"                 *******************\n"
-				"                    *************\n"
-				"                         ***\n"
-				"                         ***\n"
-				"                         ***\n"
-				"                         ***\n"
-				"                       *******\n";
-	}
-	else
-		std::cout<<"File Error"<<std::endl;
-
 	
 }
 
@@ -45,4 +24,35 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &o
 {
 	(void) other;
 	return *this;
+}
+
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
+{
+	if(!is_signed() || executor.getgrade() < get_grade_exec()){
+		throw GradeTooLowException();
+	}else{
+		std::ofstream file( _target + "_shrubbery");
+		if (file.is_open()){
+			file << "                          *\n"
+					"                        *****\n"
+					"                      *********\n"
+					"                    **************\n"
+					"                 ********************\n"
+					"              **************************\n"
+					"               ************************\n "
+					"                 *******************\n"
+					"                    *************\n"
+					"                         ***\n"
+					"                         ***\n"
+					"                         ***\n"
+					"                         ***\n"
+					"                       *******\n";}
+		else
+			throw std::invalid_argument("file error");
+	}
+}
+
+std::string ShrubberyCreationForm::get_target()
+{
+	return _target;
 }
