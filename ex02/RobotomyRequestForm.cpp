@@ -28,7 +28,9 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm &other)
 
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if(!is_signed() || executor.getgrade() < get_grade_exec())
+	if (!is_signed())
+		throw std::invalid_argument("is not signed");
+	else if(executor.getgrade() > get_grade_exec())
 		throw GradeTooLowException();
 	else{
 		std::srand((unsigned int)(std::time(nullptr)));

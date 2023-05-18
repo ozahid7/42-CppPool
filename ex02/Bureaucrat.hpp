@@ -27,6 +27,7 @@ public:
 	int					getgrade() const;
 	void				incrementgrade();
 	void				decrementgrade();
+	void				executeForm(AForm const & form);
 	void				signForm(AForm &form);
 
 private:

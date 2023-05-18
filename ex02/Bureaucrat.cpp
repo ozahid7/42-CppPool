@@ -43,6 +43,11 @@ int Bureaucrat::getgrade() const
 	return _grade;
 }
 
+void Bureaucrat::executeForm(AForm const &form)
+{
+	
+}
+
 void Bureaucrat::incrementgrade()
 {
 	if (_grade > 1)

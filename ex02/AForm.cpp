@@ -1,6 +1,6 @@
 #include "AForm.hpp"
 
-AForm::AForm(): _form_name("name"), _grade_sign(150), _execute_it(150)
+AForm::AForm(): _form_name("name"), _grade_sign(150), _grade_exec(150)
 {
 	set_is_signed(false);
 }
@@ -10,16 +10,16 @@ AForm::~AForm()
 
 }
 
-AForm::AForm(std::string name, int grade, int exec): _form_name(name), _grade_sign(grade), _execute_it(exec)
+AForm::AForm(std::string name, int grade, int exec): _form_name(name), _grade_sign(grade), _grade_exec(exec)
 {
 	set_is_signed(false);
-	if (_grade_sign < 1 || _execute_it < 1)
+	if (_grade_sign < 1 || _grade_exec < 1)
 		throw	GradeTooHighException();
-	else if (_grade_sign > 150 || _execute_it > 150)
+	else if (_grade_sign > 150 || _grade_exec > 150)
 		throw 	GradeTooLowException();
 }
 
-AForm::AForm(AForm &other):_form_name(other._form_name), _grade_sign(other._grade_sign), _execute_it(other._execute_it)
+AForm::AForm(AForm &other):_form_name(other._form_name), _grade_sign(other._grade_sign), _grade_exec(other._grade_exec)
 {
 	*this = other;
 }
@@ -68,7 +68,7 @@ void AForm::beSigned(Bureaucrat &bureau)
 
 std::ostream &operator<<(std::ostream &stream, AForm  &form)
 {
-	stream << form.get_form_name()<<" "<<form.get_grade_sign()<<" "<<form.get_execute_it()<<" "<<form.is_signed();
+	stream << form.get_form_name()<<" "<<form.get_grade_sign()<<" "<<form.get_grade_exec()<<" "<<form.is_signed();
 	return stream;
 }
 
