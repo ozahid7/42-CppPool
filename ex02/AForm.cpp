@@ -30,7 +30,7 @@ AForm &AForm::operator=(AForm const &other)
 	return (*this);
 }
 
-const std::string AForm::get_form_name()
+std::string AForm::get_form_name() const
 {
 	return _form_name;
 }

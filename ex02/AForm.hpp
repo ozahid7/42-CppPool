@@ -25,7 +25,7 @@ public:
 			return ("Grade to Low");
 		}
 	};
-	const std::string	get_form_name();
+	std::string			get_form_name()const ;
 	virtual void	execute (Bureaucrat const & executor)  const = 0;
 	bool				is_signed() const;
 	void				set_is_signed(bool is);

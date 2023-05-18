@@ -45,7 +45,12 @@ int Bureaucrat::getgrade() const
 
 void Bureaucrat::executeForm(AForm const &form)
 {
-	
+	try{
+		form.execute(*this);
+		std::cout<<_name<< " executed "<< form.get_form_name();
+	}catch(std::exception &e){
+		std::cout<<e.what()<<std::endl;
+	}
 }
 
 void Bureaucrat::incrementgrade()

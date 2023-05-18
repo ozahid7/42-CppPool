@@ -8,7 +8,7 @@ int main(){
 		Bureaucrat b1("b1", 3);
 		RobotomyRequestForm pres1("robot");
 		b1.signForm(pres1);
-		pres1.execute(b1);
+		b1.executeForm(pres1);
 	}
 	catch(std::exception &e){
 		std::cout<<e.what()<<std::endl;
