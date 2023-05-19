@@ -34,3 +34,5 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 	else
 		std::cout<<_target + "_Presidential"<<" has been pardoned by Zaphod Beeblebrox "<<std::endl;
 }
+
+
