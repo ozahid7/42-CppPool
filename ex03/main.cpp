@@ -2,13 +2,15 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 
 int main(){
 	try{
+		AForm *form;
+		Intern f;
 		Bureaucrat b1("b1", 3);
-		RobotomyRequestForm pres1("robot");
-		b1.signForm(pres1);
-		b1.executeForm(pres1);
+		form = f.makeForm("", "");
+		b1.executeForm(*form);
 	}
 	catch(std::exception &e){
 		std::cout<<e.what()<<std::endl;

@@ -26,7 +26,8 @@ public:
 		}
 	};
 	std::string			get_form_name()const ;
-	virtual void	execute (Bureaucrat const & executor)  const = 0;
+	virtual void		execute (Bureaucrat const & executor)  const = 0;
+	virtual AForm		*get_me() const = 0;
 	bool				is_signed() const;
 	void				set_is_signed(bool is);
 	int					get_grade_sign() const;
