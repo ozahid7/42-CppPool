@@ -72,4 +72,3 @@ std::ostream &operator<<(std::ostream &stream, AForm  &form)
 	return stream;
 }
 
-

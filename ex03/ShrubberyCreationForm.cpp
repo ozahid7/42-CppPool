@@ -2,7 +2,7 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm()
 {
-
+	_target = "default_Shrubbery";
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other)
@@ -12,7 +12,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other)
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string name): AForm::AForm(name , 145, 137)
 {
-	
+	_target = name;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm()
@@ -22,7 +22,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &other)
 {
-	(void) other;
+	_target = other._target;
 	return *this;
 }
 
@@ -57,4 +57,11 @@ void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 std::string ShrubberyCreationForm::get_target()
 {
 	return _target;
+}
+
+
+AForm *ShrubberyCreationForm::get_me(std::string name) const
+{
+	ShrubberyCreationForm *shru = new ShrubberyCreationForm(name);
+	return (shru);
 }

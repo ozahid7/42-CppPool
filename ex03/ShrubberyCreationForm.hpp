@@ -15,7 +15,7 @@ public:
 
 	void	execute (Bureaucrat const & executor) const;
 	std::string get_target();
-	
+	AForm	*get_me(std::string name) const;
 
 private:
 	std::string			_target;

@@ -2,7 +2,7 @@
 
 RobotomyRequestForm::RobotomyRequestForm()
 {
-
+	_target = "default_Robotomy";
 }
 
 RobotomyRequestForm::~RobotomyRequestForm()
@@ -22,7 +22,7 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other)
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm &other)
 {
-	(void)other;
+	_target = other._target;
 	return (*this);
 }
 
@@ -41,4 +41,10 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 			std::cout<<" The robotomy failed "<<std::endl;
 	}
 	}
+}
+
+AForm *RobotomyRequestForm::get_me(std::string name) const
+{
+	RobotomyRequestForm *robot = new RobotomyRequestForm(name);
+	return (robot);
 }

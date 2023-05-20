@@ -1,8 +1,12 @@
 #include "Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat()
+Bureaucrat::Bureaucrat(): _name("name"), _grade(5)
 {
 	// std::cout<<"Default constructor is called"<<std::endl;
+	if (_grade < 1)
+		throw Bureaucrat::GradeTooHighException();
+	else if (_grade > 150)
+		throw Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat &other)
@@ -47,7 +51,7 @@ void Bureaucrat::executeForm(AForm const &form)
 {
 	try{
 		form.execute(*this);
-		std::cout<<_name<< " executed "<< form.get_form_name();
+		std::cout<<_name<< " executed "<< form.get_form_name()<<std::endl;
 	}catch(std::exception &e){
 		std::cout<<_name<< " couldn't execute " << form.get_form_name()<<" because "<<e.what()<<std::endl;
 	}

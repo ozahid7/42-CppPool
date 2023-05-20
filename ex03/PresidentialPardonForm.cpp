@@ -2,11 +2,12 @@
 
 PresidentialPardonForm::PresidentialPardonForm()
 {
-
+	_target = "default_Presidential";
 }
 
 PresidentialPardonForm::~PresidentialPardonForm()
 {
+
 }
 
 PresidentialPardonForm::PresidentialPardonForm(std::string name): AForm::AForm(name, 25, 5)
@@ -21,7 +22,7 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &other)
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm &other)
 {
-	(void) other;
+	_target = other._target;
 	return (*this);
 }
 
@@ -35,10 +36,10 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 		std::cout<<_target + "_Presidential"<<" has been pardoned by Zaphod Beeblebrox "<<std::endl;
 }
 
-AForm *PresidentialPardonForm::get_me() const
+AForm *PresidentialPardonForm::get_me(std::string name) const
 {
 	PresidentialPardonForm *pres;
 
-	pres = new PresidentialPardonForm;
+	pres = new PresidentialPardonForm(name);
 	return (pres);
 }

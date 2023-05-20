@@ -7,7 +7,7 @@ class Bureaucrat;
 class AForm{
 public:
 	AForm();
-	~AForm();
+	virtual ~AForm();
 	AForm(std::string name, int grade, int exec);
 	AForm(AForm &other);
 
@@ -27,11 +27,12 @@ public:
 	};
 	std::string			get_form_name()const ;
 	virtual void		execute (Bureaucrat const & executor)  const = 0;
-	virtual AForm		*get_me() const = 0;
+	virtual AForm		*get_me(std::string name) const = 0;
 	bool				is_signed() const;
 	void				set_is_signed(bool is);
 	int					get_grade_sign() const;
 	int					get_grade_exec() const;
+	AForm				*get_forms() const;
 	void				beSigned(Bureaucrat &bureau);
 
 private:
