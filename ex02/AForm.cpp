@@ -71,5 +71,3 @@ std::ostream &operator<<(std::ostream &stream, AForm  &form)
 	stream << form.get_form_name()<<" "<<form.get_grade_sign()<<" "<<form.get_grade_exec()<<" "<<form.is_signed();
 	return stream;
 }
-
-

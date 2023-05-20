@@ -2,7 +2,7 @@
 
 RobotomyRequestForm::RobotomyRequestForm()
 {
-
+	_target = "default_robotomy";
 }
 
 RobotomyRequestForm::~RobotomyRequestForm()
@@ -22,7 +22,7 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm &other)
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm &other)
 {
-	(void)other;
+	_target = other._target;
 	return (*this);
 }
 
@@ -42,3 +42,5 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 	}
 	}
 }
+
+

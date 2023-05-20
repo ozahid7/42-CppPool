@@ -2,7 +2,7 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm()
 {
-
+	_target = "default_shrubbery";
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm &other)
@@ -22,7 +22,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm &other)
 {
-	(void) other;
+	_target = other._target;
 	return *this;
 }
 
@@ -58,3 +58,4 @@ std::string ShrubberyCreationForm::get_target()
 {
 	return _target;
 }
+

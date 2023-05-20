@@ -2,7 +2,7 @@
 
 PresidentialPardonForm::PresidentialPardonForm()
 {
-
+	_target = "default_presidential";
 }
 
 PresidentialPardonForm::~PresidentialPardonForm()
@@ -21,7 +21,7 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm &other)
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm &other)
 {
-	(void) other;
+	_target = other._target;
 	return (*this);
 }
 
