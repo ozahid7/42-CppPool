@@ -12,7 +12,7 @@ public:
 
 	ScalarConverte &operator=(ScalarConverte const &other);
 
-	void	convert(std::string convert);
+	void	convert(std::string converted);
 private:
 };
 
