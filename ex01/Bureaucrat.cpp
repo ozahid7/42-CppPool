@@ -3,10 +3,16 @@
 Bureaucrat::Bureaucrat():_name("name"), _grade(150)
 {
 	// std::cout<<"Default constructor is called"<<std::endl;
-	if (_grade < 1)
-		throw Bureaucrat::GradeTooHighException();
-	else if (_grade > 150)
-		throw Bureaucrat::GradeTooLowException();
+	try{
+		if (_grade < 1)
+			throw Bureaucrat::GradeTooHighException();
+		else if (_grade > 150)
+			throw Bureaucrat::GradeTooLowException();
+	}
+	catch(const std::exception &e)
+	{
+		std::cout<<e.what()<<std::endl;
+	}
 }
 
 Bureaucrat::Bureaucrat(Bureaucrat &other)

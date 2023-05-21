@@ -22,12 +22,12 @@ int main(){
 		b1.signForm(*form);
 		b1.executeForm(*form);
 		}
-		Bureaucrat b2("b2", 2);
+		Bureaucrat b2("b2", 0);
 		form = f.makeForm("robot", "RobotomyRequestForm");
 		if (form)
 		{
-		b2.signForm(*form);
-		b2.signForm(*form);
+		// b2.signForm(*form);
+		// b2.signForm(*form);
 		b2.executeForm(*form);
 		}
 	}
