@@ -4,10 +4,13 @@
 int main(){
 	try{
 		// Bureaucrat b1("b1", -1);
-		Bureaucrat b2("b2", 2);
-		b2.decrementgrade();
-		b2.decrementgrade();
+		Bureaucrat b2("b2", 0);
 		std::cout<<b2<<std::endl;
+		Bureaucrat b3("b3", 2);
+		b3.incrementgrade();
+		b3.incrementgrade();
+		b3.incrementgrade();
+		std::cout<<b3<<std::endl;
 		// b2.decrementgrade();
 		// std::cout<<b1<<std::endl;
 		// b1.incrementgrade();
