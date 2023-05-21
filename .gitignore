@@ -1,7 +1,6 @@
 objects
 .vscode
 *.DS_Store
-
 .gitignore
 *.o
 
