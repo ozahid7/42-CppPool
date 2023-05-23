@@ -1,7 +1,7 @@
 objects
 .vscode
 *.DS_Store
-Scalar
+convert
 .gitignore
 *.o
 
