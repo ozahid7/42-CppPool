@@ -22,4 +22,5 @@ ScalarConverte &ScalarConverte::operator=(ScalarConverte const &other)
 
 void ScalarConverte::convert(std::string convert)
 {
+	
 }

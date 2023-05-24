@@ -1,19 +1,12 @@
 #include "ScalarConverte.hpp"
 #include <sstream>
 
-void print_char(char c){
-	if (c <= 32)
-		std::cout<<"char : Non displayable "<<std::endl;
-	else
-		std::cout<<"char : "<<c<<std::endl;
-}
-
 
 bool is_it_digits(std::string str)
 {
 	size_t i = 0;
 
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 		i++;
     for(; i < str.length(); i++){
         if (!isdigit(str[i]))
@@ -28,7 +21,7 @@ bool is_double(std::string str){
 	size_t i = 0;
 
 	point = 0;
-	if (str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 		i++;
     for(; i < str.length(); i++){
 		if (str[i] == '.'){
@@ -80,55 +73,84 @@ bool is_char(std::string str){
 	return (false);
 }
 
+bool is_zero(std::string str){
+	int pos;
+
+	pos = 0;
+	pos = str.find('.');
+	str = str.substr(pos + 1, str.length());
+	for (size_t i = 0; i < str.length(); i++)
+	{
+		if (str[i] != '0')
+			return (false);
+	}
+	return (true);
+}
+
+void show_results(int i, char c, double d, float f, std::string str){
+
+	int x;
+
+	x = str.find('.');
+	if (c <= 32)
+		std::cout<<"char : Non displayable "<<std::endl;
+	else
+		std::cout<<"char : "<<c<<std::endl;
+
+	std::cout<<"int : "<<i<<std::endl;
+	if (is_zero(str.substr(0, str.length() - 1)) || x == -1)
+		std::cout<<"float : "<<f<<".0f"<<std::endl;
+	else
+		std::cout<<"float : "<<f<<"f"<<std::endl;
+	if (is_zero(str) || x == -1)
+		std::cout<<"double : "<<d<<".0"<<std::endl;
+	else
+		std::cout<<"double : "<<d<<std::endl;
+
+}
+
 int main(int ac, char **av){
 
     std::string str;
+	std::stringstream dd;
+	std::stringstream ff;
 	double	d;
 	int		i;
 	float	f;
 	char	c;
-	
 
     if (ac == 1 || ac > 2)
-        return (std::cout << "Invalid Arguments "<<std::endl, 1);
+        return (std::cout << " Invalid Arguments "<<std::endl, 1);
     str = av[1];
 	is_pseudo(str);
     if (is_it_digits(str))
     {
 		std::stringstream ss;
-		 
 		ss << str;
 		ss >> i;
         d = static_cast<double>(i);
         f = static_cast<float>(i);
         c = static_cast<char>(i);
-		print_char(c);
-		std::cout<<"int : "<<i<<std::endl;
-		std::cout<<"double : "<<d<<std::endl;
-		std::cout<<"float : "<<f<<"f"<<std::endl;
+		show_results(i, c, d, f, str);
     }
 
     else if (is_double(str)){
-		std::stringstream ss;
-		ss << str;
-		ss >> d;
+
+		char *ptr;
+		d = std::strtod(str.c_str(), &ptr);
 		i = static_cast<int>(d);
 		f = static_cast<float>(d);
 		c = static_cast<char>(d);
-		print_char(c);
-		std::cout<<"int : "<<i<<std::endl;
-		std::cout<<"double : "<<d<<std::endl;
-		std::cout<<"float : "<<f<<"f"<<std::endl;
+		show_results(i, c, d, f, str);
     }
     else if (is_float(str)){
-		f = std::atof(str.c_str());
+		char *ptr;
+		f = std::strtod(str.c_str(), &ptr);
 		i = static_cast<int>(f);
 		d = static_cast<double>(f);
 		c = static_cast<char>(f);
-		print_char(c);
-		std::cout<<"int : "<<i<<std::endl;
-		std::cout<<"double : "<<d<<std::endl;
-		std::cout<<"float : "<<f<<"f"<<std::endl;
+		show_results(i, c, d, f, str);
+		
     }
 	else if (is_char(str)){
 		std::stringstream ss;
@@ -137,10 +159,7 @@ int main(int ac, char **av){
 		i = static_cast<int>(c);
 		f = static_cast<float>(c);
 		d = static_cast<double>(c);
-		print_char(c);
-		std::cout<<"int : "<<i<<std::endl;
-		std::cout<<"double : "<<d<<std::endl;
-		std::cout<<"float : "<<f<<"f"<<std::endl;
+		show_results(i, c, d, f, str);
 	}
 
 }
