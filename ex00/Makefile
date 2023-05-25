@@ -2,13 +2,13 @@ NAME = convert
 
 OBJECTS = objects
 
-HEADERS = 
+HEADERS = ScalarConverte.hpp
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
+SRC =	main.cpp ScalarConverte.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
