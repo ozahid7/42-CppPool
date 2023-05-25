@@ -1,5 +1,10 @@
 #include "ScalarConverte.hpp"
 
+char	ScalarConverte::c;
+int		ScalarConverte::i;
+double	ScalarConverte::d;
+float	ScalarConverte::f;
+
 ScalarConverte::ScalarConverte()
 {
 }
@@ -15,14 +20,17 @@ ScalarConverte::ScalarConverte(ScalarConverte const &other)
 
 ScalarConverte &ScalarConverte::operator=(ScalarConverte const &other)
 {
-	// TODO: insert return statement here
-	(void) other;
+	d = other.d;
+	c = other.c;
+	i = other.i;
+	f = other.f;
 	return (*this);
 }
 
 void ScalarConverte::convert(std::string convert)
 {
 	ScalarConverte obj;
+	obj.is_pseudo(convert);
 	if (obj.is_char(convert))
 		obj.cast_char(convert);
 	else if (obj.is_it_digits(convert))
@@ -36,7 +44,7 @@ void ScalarConverte::convert(std::string convert)
 	}
 }
 
-void ScalarConverte::show_results(int i, char c, double d, float f, std::string str)
+void ScalarConverte::show_results(int j, int i, char c, double d, float f, std::string str)
 {
 	int x;
 
@@ -45,30 +53,57 @@ void ScalarConverte::show_results(int i, char c, double d, float f, std::string 
 		std::cout<<"char : Non displayable "<<std::endl;
 	else
 		std::cout<<"char : "<<c<<std::endl;
-
 	std::cout<<"int : "<<i<<std::endl;
-	if (is_zero(str.substr(0, str.length())) || x == -1)
+	if (is_zero1(str.substr(0, str.length()), j) || x == -1)
 		std::cout<<"float : "<<f<<".0f"<<std::endl;
 	else
 		std::cout<<"float : "<<f<<"f"<<std::endl;
-	if (is_zero(str) || x == -1)
+	if (is_zero1(str, j) || x == -1)
 		std::cout<<"double : "<<d<<".0"<<std::endl;
 	else
 		std::cout<<"double : "<<d<<std::endl;
 
 }
 
-bool ScalarConverte::is_zero(std::string str)
+bool ScalarConverte::is_zero1(std::string str, int x)
 {
 	int pos;
+	size_t len;
 
 	pos = 0;
 	pos = str.find('.');
-	str = str.substr(pos + 1, str.length());
-	for (size_t i = 0; i < str.length(); i++)
+	pos++;
+	if (x == 1)
+		len = str.length() - pos - 1;
+	else if (x == 2)
+		len = str.length() - pos;
+	str = str.substr(pos, len);
+	std::cout<<"str = "<<str<<std::endl;
+	for (size_t i = 0; i < len; i++)
 	{
-		if (str[i] != '0')
+		if (str[i] != '0'){
 			return (false);
+		}
+	}
+	return (true);
+}
+
+bool ScalarConverte::is_zero2(std::string str)
+{
+	int pos;
+	size_t len;
+
+	pos = 0;
+	pos = str.find('.');
+	pos++;
+	len = str.length() - pos;
+	str = str.substr(pos, len);
+	std::cout<<"str = "<<str<<std::endl;
+	for (size_t i = 0; i < len; i++)
+	{
+		if (str[i] != '0'){
+			return (false);
+		}
 	}
 	return (true);
 }
@@ -151,7 +186,7 @@ void ScalarConverte::cast_char(std::string str)
 	i = static_cast<int>(c);
 	f = static_cast<float>(c);
 	d = static_cast<double>(c);
-	show_results(i, c, d, f, str);
+	show_results(0, i, c, d, f, str);
 }
 void ScalarConverte::cast_float(std::string str)
 {
@@ -160,7 +195,7 @@ void ScalarConverte::cast_float(std::string str)
 	i = static_cast<int>(f);
 	d = static_cast<double>(f);
 	c = static_cast<char>(f);
-	show_results(i, c, d, f, str);
+	show_results(1, i, c, d, f, str);
 }
 void ScalarConverte::cast_double(std::string str)
 {
@@ -169,7 +204,7 @@ void ScalarConverte::cast_double(std::string str)
 	i = static_cast<int>(d);
 	f = static_cast<float>(d);
 	c = static_cast<char>(d);
-	show_results(i, c, d, f, str);
+	show_results(2, i, c, d, f, str);
 }
 
 void ScalarConverte::cast_int(std::string str)
@@ -180,5 +215,5 @@ void ScalarConverte::cast_int(std::string str)
     d = static_cast<double>(i);
     f = static_cast<float>(i);
     c = static_cast<char>(i);
-	show_results(i, c, d, f, str);
+	show_results(0, i, c, d, f, str);
 }

@@ -14,8 +14,9 @@ public:
 	ScalarConverte &operator=(ScalarConverte const &other);
 
 	static void	convert(std::string converted);
-	void 	show_results(int i, char c, double d, float f, std::string str);
-	bool 	is_zero(std::string str);
+	void 	show_results(int j, int i, char c, double d, float f, std::string str);
+	bool 	is_zero1(std::string str, int x);
+	bool 	is_zero2(std::string str);
 	bool 	is_char(std::string str);
 	bool 	is_float(std::string str);
 	bool 	is_double(std::string str);
