@@ -7,6 +7,10 @@ float	ScalarConverte::f;
 
 ScalarConverte::ScalarConverte()
 {
+	d = 0.0;
+	f = 0.0;
+	i = 0;
+	c = 48;
 }
 
 ScalarConverte::~ScalarConverte()
@@ -49,7 +53,7 @@ void ScalarConverte::show_results(int j, int i, char c, double d, float f, std::
 	int x;
 
 	x = str.find('.');
-	if (!str.compare("nan") || !str.compare("nanf"))
+	if (!str.compare("nan") || !str.compare("nanf") || !str.compare("inf") || !str.compare("-inf") || !str.compare("+inf") || !str.compare("inff") || !str.compare("-inff") || !str.compare("+inff"))
 		std::cout<<"char : Impossible "<<std::endl;
 	else if (c <= 32 || c > 126)
 		std::cout<<"char : Non displayable "<<std::endl;
@@ -155,12 +159,10 @@ void ScalarConverte::is_pseudo(std::string str)
 	else if (!str.compare("nanf") || !str.compare("inff") || !str.compare("-inff") || !str.compare("+inff")){
 		if(str.length() == 5 || !str.compare("inff"))
 			str = str.substr(0, str.length() - 1);
-		std::stringstream ss;
-		ss << str;
-		ss >> f;
-		i = static_cast<int>(d);
-		d = static_cast<float>(d);
-		c = static_cast<char>(d);
+		f = std::atof(str.c_str());
+		i = static_cast<int>(f);
+		d = static_cast<float>(f);
+		c = static_cast<char>(f);
 		show_results(0, i, c, d , f, str);
 		exit (0);
 	}
@@ -179,6 +181,7 @@ void ScalarConverte::cast_char(std::string str)
 void ScalarConverte::cast_float(std::string str)
 {
 	std::stringstream ss;
+	str = str.substr(0, str.length() - 1);
 	ss << str;
 	ss >> f;
 	i = static_cast<int>(f);
