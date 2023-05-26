@@ -49,56 +49,40 @@ void ScalarConverte::show_results(int j, int i, char c, double d, float f, std::
 	int x;
 
 	x = str.find('.');
-	if (c <= 32)
+	if (!str.compare("nan") || !str.compare("nanf"))
+		std::cout<<"char : Impossible "<<std::endl;
+	else if (c <= 32 || c > 126)
 		std::cout<<"char : Non displayable "<<std::endl;
 	else
 		std::cout<<"char : "<<c<<std::endl;
-	std::cout<<"int : "<<i<<std::endl;
+	if (i >= INT_MAX || i <= INT_MIN)
+		std::cout<<"int : Impossible "<<std::endl;
+	else
+		std::cout<<"int : "<<i<<std::endl;
 	if (is_zero1(str.substr(0, str.length()), j) || x == -1)
-		std::cout<<"float : "<<f<<".0f"<<std::endl;
+		std::cout<<std::fixed<<std::setprecision(1)<<"float : "<<f<<"f"<<std::endl;
 	else
-		std::cout<<"float : "<<f<<"f"<<std::endl;
+		std::cout<<std::fixed<<std::setprecision(1)<<"float : "<<f<<"f"<<std::endl;
 	if (is_zero1(str, j) || x == -1)
-		std::cout<<"double : "<<d<<".0"<<std::endl;
+		std::cout<<std::fixed<<std::setprecision(1)<<"double : "<<d<<std::endl;
 	else
-		std::cout<<"double : "<<d<<std::endl;
+		std::cout<<std::fixed<<std::setprecision(1)<<"double : "<<d<<std::endl;
 
 }
 
 bool ScalarConverte::is_zero1(std::string str, int x)
 {
 	int pos;
-	size_t len;
+	size_t len = 0;
 
 	pos = 0;
 	pos = str.find('.');
 	pos++;
 	if (x == 1)
-		len = str.length() - pos - 1;
+		len = str.length() - pos -1;
 	else if (x == 2)
 		len = str.length() - pos;
 	str = str.substr(pos, len);
-	std::cout<<"str = "<<str<<std::endl;
-	for (size_t i = 0; i < len; i++)
-	{
-		if (str[i] != '0'){
-			return (false);
-		}
-	}
-	return (true);
-}
-
-bool ScalarConverte::is_zero2(std::string str)
-{
-	int pos;
-	size_t len;
-
-	pos = 0;
-	pos = str.find('.');
-	pos++;
-	len = str.length() - pos;
-	str = str.substr(pos, len);
-	std::cout<<"str = "<<str<<std::endl;
 	for (size_t i = 0; i < len; i++)
 	{
 		if (str[i] != '0'){
@@ -158,22 +142,26 @@ bool ScalarConverte::is_it_digits(std::string str)
 
 void ScalarConverte::is_pseudo(std::string str)
 {
-	if (!str.compare("nan") || !str.compare("nanf")){
-		str = "nan";
-		std::cout<<"char : impossible"<<std::endl;
-		std::cout<<"int : impossible "<<std::endl;
-		std::cout<<"float : "<<str + "f"<<std::endl;
-		std::cout<<"double : "<<str<<std::endl;
+	if (!str.compare("nan") || !str.compare("inf") || !str.compare("-inf") || !str.compare("+inf")){
+		std::stringstream ss;
+		ss << str;
+		ss >> d;
+		i = static_cast<int>(d);
+		f = static_cast<float>(d);
+		c = static_cast<char>(d);
+		show_results(0, i, c, d , f, str);
 		exit (0);
 	}
-	else if (!str.compare("inff") || !str.compare("inf") || !str.compare("-inf") || !str.compare("+inf") || !str.compare("-inff") || !str.compare("+inff")){
-
+	else if (!str.compare("nanf") || !str.compare("inff") || !str.compare("-inff") || !str.compare("+inff")){
 		if(str.length() == 5 || !str.compare("inff"))
 			str = str.substr(0, str.length() - 1);
-		std::cout<<"char : impossible"<<std::endl;
-		std::cout<<"int : impossible "<<std::endl;
-		std::cout<<"float : " <<str + "f"<<std::endl;
-		std::cout<<"double : "<<str<<std::endl;
+		std::stringstream ss;
+		ss << str;
+		ss >> f;
+		i = static_cast<int>(d);
+		d = static_cast<float>(d);
+		c = static_cast<char>(d);
+		show_results(0, i, c, d , f, str);
 		exit (0);
 	}
 }
@@ -190,8 +178,9 @@ void ScalarConverte::cast_char(std::string str)
 }
 void ScalarConverte::cast_float(std::string str)
 {
-	char *ptr;
-	f = std::strtod(str.c_str(), &ptr);
+	std::stringstream ss;
+	ss << str;
+	ss >> f;
 	i = static_cast<int>(f);
 	d = static_cast<double>(f);
 	c = static_cast<char>(f);
@@ -199,8 +188,9 @@ void ScalarConverte::cast_float(std::string str)
 }
 void ScalarConverte::cast_double(std::string str)
 {
-	char *ptr;
-	d = std::strtod(str.c_str(), &ptr);
+	std::stringstream ss;
+	ss << str;
+	ss >> d;
 	i = static_cast<int>(d);
 	f = static_cast<float>(d);
 	c = static_cast<char>(d);
@@ -212,6 +202,11 @@ void ScalarConverte::cast_int(std::string str)
 	std::stringstream ss;
 	ss << str;
 	ss >> i;
+	if (ss.fail() == 1)
+	{
+		std::cout<<" What is this "<<std::endl;
+		exit (1);
+	}
     d = static_cast<double>(i);
     f = static_cast<float>(i);
     c = static_cast<char>(i);
