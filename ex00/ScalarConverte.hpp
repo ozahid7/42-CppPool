@@ -13,7 +13,7 @@ public:
 
 	static void	convert(std::string converted);
 	static void show_results(int j, int i, char c, double d, float f, std::string str);
-	static bool is_zero1(std::string str, int x);
+	static bool is_zero1(std::string str, int x, int *space);
 	static bool is_char(std::string str);
 	static bool is_float(std::string str);
 	static bool is_double(std::string str);

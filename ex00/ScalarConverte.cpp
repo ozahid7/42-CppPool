@@ -49,9 +49,10 @@ void ScalarConverte::convert(std::string convert)
 
 void ScalarConverte::show_results(int j, int i, char c, double d, float f, std::string str)
 {
-	int x;
+	// int x;
+	int space = 2;
 
-	x = str.find('.');
+	// x = str.find('.');
 	if (!str.compare("nan") || !str.compare("nanf") || !str.compare("inf") || !str.compare("-inf") || !str.compare("+inf") || !str.compare("inff") || !str.compare("-inff") || !str.compare("+inff"))
 		std::cout<<"char : Impossible "<<std::endl;
 	else if (c <= 32 || c > 126)
@@ -64,18 +65,17 @@ void ScalarConverte::show_results(int j, int i, char c, double d, float f, std::
 		std::cout<<"int : "<<i<<std::endl;
 	if (f > MAXFLOAT)
 		std::cout<<"float : impossible "<<std::endl;
-	else if (is_zero1(str.substr(0, str.length()), j) || x == -1)
-		std::cout<<std::fixed<<std::setprecision(1)<<"float : "<<f<<"f"<<std::endl;
+	else if (is_zero1(str.substr(0, str.length()), j, &space))
+		std::cout<<std::fixed<<std::setprecision(space)<<"float : "<<f<<"f"<<std::endl;
 	else
-		std::cout<<std::fixed<<std::setprecision(1)<<"float : "<<f<<"f"<<std::endl;
-	if (is_zero1(str, j) || x == -1)
-		std::cout<<std::fixed<<std::setprecision(1)<<"double : "<<d<<std::endl;
+		std::cout<<std::fixed<<std::setprecision(space)<<"float : "<<f<<"f"<<std::endl;
+	if (is_zero1(str, j, &space))
+		std::cout<<std::fixed<<std::setprecision(space)<<"double : "<<d<<std::endl;
 	else
-		std::cout<<std::fixed<<std::setprecision(1)<<"double : "<<d<<std::endl;
-
+		std::cout<<std::fixed<<std::setprecision(space)<<"double : "<<d<<std::endl;
 }
 
-bool ScalarConverte::is_zero1(std::string str, int x)
+bool ScalarConverte::is_zero1(std::string str, int x, int *space)
 {
 	int pos;
 	size_t len = 0;
@@ -88,6 +88,10 @@ bool ScalarConverte::is_zero1(std::string str, int x)
 	else if (x == 2)
 		len = str.length() - pos;
 	str = str.substr(pos, len);
+	if (str.length() == 0)
+		*space = 1;
+	else
+		*space = str.length();
 	for (size_t i = 0; i < len; i++)
 	{
 		if (str[i] != '0'){
