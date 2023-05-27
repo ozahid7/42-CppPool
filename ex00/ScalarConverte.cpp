@@ -33,16 +33,15 @@ ScalarConverte &ScalarConverte::operator=(ScalarConverte const &other)
 
 void ScalarConverte::convert(std::string convert)
 {
-	ScalarConverte obj;
-	obj.is_pseudo(convert);
-	if (obj.is_char(convert))
-		obj.cast_char(convert);
-	else if (obj.is_it_digits(convert))
-		obj.cast_int(convert);
-	else if (obj.is_float(convert))
-		obj.cast_float(convert);
-	else if(obj.is_double(convert))
-		obj.cast_double(convert);
+	is_pseudo(convert);
+	if (is_char(convert))
+		cast_char(convert);
+	else if (is_it_digits(convert))
+		cast_int(convert);
+	else if (is_float(convert))
+		cast_float(convert);
+	else if(is_double(convert))
+		cast_double(convert);
 	else{
 		std::cout<< " What Is This "<<std::endl;
 	}
@@ -63,7 +62,9 @@ void ScalarConverte::show_results(int j, int i, char c, double d, float f, std::
 		std::cout<<"int : Impossible "<<std::endl;
 	else
 		std::cout<<"int : "<<i<<std::endl;
-	if (is_zero1(str.substr(0, str.length()), j) || x == -1)
+	if (f > MAXFLOAT)
+		std::cout<<"float : impossible "<<std::endl;
+	else if (is_zero1(str.substr(0, str.length()), j) || x == -1)
 		std::cout<<std::fixed<<std::setprecision(1)<<"float : "<<f<<"f"<<std::endl;
 	else
 		std::cout<<std::fixed<<std::setprecision(1)<<"float : "<<f<<"f"<<std::endl;
@@ -184,6 +185,11 @@ void ScalarConverte::cast_float(std::string str)
 	str = str.substr(0, str.length() - 1);
 	ss << str;
 	ss >> f;
+	if (ss.fail() == 1)
+	{
+		std::cout<<" What is this "<<std::endl;
+		exit (1);
+	}
 	i = static_cast<int>(f);
 	d = static_cast<double>(f);
 	c = static_cast<char>(f);
@@ -194,6 +200,11 @@ void ScalarConverte::cast_double(std::string str)
 	std::stringstream ss;
 	ss << str;
 	ss >> d;
+	if (ss.fail() == 1)
+	{
+		std::cout<<" What is this "<<std::endl;
+		exit (1);
+	}
 	i = static_cast<int>(d);
 	f = static_cast<float>(d);
 	c = static_cast<char>(d);

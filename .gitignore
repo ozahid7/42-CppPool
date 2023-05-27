@@ -2,6 +2,7 @@ objects
 .vscode
 *.DS_Store
 convert
+Serialization
 .gitignore
 *.o
 
