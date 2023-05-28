@@ -22,14 +22,14 @@ Serializer &Serializer::operator=(Serializer &other)
 
 uintptr_t Serializer::serialize(Data *ptr)
 {
-	uintptr_t t = 4;
-	ptr = reinterpret_cast<Data*>(t);
+	uintptr_t t;
+	t = reinterpret_cast<uintptr_t>(ptr);
 	return (t);
 }
 
 Data *Serializer::deserialize(uintptr_t raw)
 {
-	Data *data = new Data;
-	raw = reinterpret_cast<uintptr_t>(data);
+	Data *data;
+	data = reinterpret_cast<Data *>(raw);
 	return (data);
 }
