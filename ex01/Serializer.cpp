@@ -4,15 +4,16 @@ Serializer::Serializer()
 {
 }
 
-Serializer::Serializer(Serializer const &other)
+Serializer::Serializer(Serializer  &other)
 {
+	*this = other;
 }
 
 Serializer::~Serializer()
 {
 }
 
-Serializer &Serializer::operator=(Serializer const &other)
+Serializer &Serializer::operator=(Serializer &other)
 {
 	// TODO: insert return statement here
 	(void)other;
@@ -21,10 +22,14 @@ Serializer &Serializer::operator=(Serializer const &other)
 
 uintptr_t Serializer::serialize(Data *ptr)
 {
-	return uintptr_t();
+	uintptr_t t = 4;
+	ptr = reinterpret_cast<Data*>(t);
+	return (t);
 }
 
 Data *Serializer::deserialize(uintptr_t raw)
 {
-	return nullptr;
+	Data *data = new Data;
+	raw = reinterpret_cast<uintptr_t>(data);
+	return (data);
 }
