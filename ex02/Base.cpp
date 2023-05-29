@@ -19,8 +19,6 @@ Base *generate(void)
 		base = dynamic_cast<Base *>(b);
 	else if (r % 3 == 2)
 		base = dynamic_cast<Base *>(c);
-	else
-		std::cout<<"hhhhhhh\n";
 	return (base);
 }
 
