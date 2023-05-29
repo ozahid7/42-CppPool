@@ -3,15 +3,20 @@
 
 int main (){
 	Data *ptr = new Data;
-	Data *tfo;
 
 	ptr->i = 9;
 	uintptr_t u = 4;
-	std::cout<<ptr<<std::endl;
+	double h = 10.04;
 
-	u = Serializer::serialize(ptr);
+	u = reinterpret_cast<uintptr_t>(&h);
+	std::cout<<&h<<std::endl;
 	std::cout<<u<<std::endl;
-	tfo = Serializer::deserialize(u);
-	std::cout<<tfo<<std::endl;
-	std::cout<<tfo->i<<std::endl;
+	// std::cout<<ptr<<std::endl;
+
+	// std::cout<<ptr<<std::endl;
+	// u = Serializer::serialize(ptr);
+	// std::cout<<ptr<<std::endl;
+	// ptr = Serializer::deserialize(u);
+	// std::cout<<ptr<<std::endl;
+	// std::cout<<u<<std::endl;
 }
