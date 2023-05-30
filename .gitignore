@@ -1,9 +1,0 @@
-objects
-.vscode
-*.DS_Store
-convert
-Serialization
-.gitignore
- Identify
-*.o
-a.out
