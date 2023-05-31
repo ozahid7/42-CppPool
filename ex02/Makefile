@@ -1,4 +1,4 @@
-NAME = 00
+NAME = ex02 
 
 OBJECTS = objects
 
