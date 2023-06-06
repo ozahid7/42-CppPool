@@ -2,7 +2,7 @@ NAME = ex02
 
 OBJECTS = objects
 
-HEADERS = whatever.hpp
+HEADERS = Array.hpp
 
 C++ = c++
 

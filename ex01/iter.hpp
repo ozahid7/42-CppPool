@@ -4,15 +4,23 @@
 #include <iostream>
 
 template<typename T>
-void iter(T *tab, T len, void print_msg()){
-	int i;
+void print_msg(T *str){
+	str++;
+	std::cout<<str<<std::endl;
+}
 
-	i = 0;
-	while (i < len)
-	{
-		print_msg();
-		i++;
+template<typename T>
+void iter(T* tab, int len, void (*func)(T *)){
+	for (int i = 0; i < len; i++){
+		func(tab);
 	}
 }
+
+// template<typename T>
+// void iter1(T* tab, int len, void (*func)(T const &x)){
+// 	for (int i = 0; i < len; i++){
+// 		func(tab[i]);
+// 	}
+// }
 
 #endif
