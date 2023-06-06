@@ -13,7 +13,7 @@ class Array{
 	Array(unsigned int n);
 	Array (Array &other);
 
-	T &operator=(Array const &other);
+	Array &operator=(Array const &other);
 	T &operator[](unsigned int index);
 
 };
@@ -22,15 +22,15 @@ class Array{
 template <typename T>
 Array<T>::Array()
 {
-	T _array = new T;
-	_size = 0;
+	_array = new T;
+	_size = 1;
 }
 
 template <typename T>
 Array<T>::Array(unsigned int n)
 {
 	_size = n;
-	T * a = new T[n];
+	_array = new T[n];
 }
 
 template <typename T>
@@ -40,12 +40,13 @@ Array<T>::Array(Array &other)
 }
 
 template <typename T>
-T &Array<T>::operator=(Array const &other)
+Array<T> &Array<T>::operator=(Array const &other)
 {
-	for(int i = 0; i < _size; i++){
-		_array[i] == other._array[i];
-	}
+	_array = new T[other._size];
 	_size = other._size;
+	for(unsigned int i = 0; i < _size; i++){
+		_array[i] = other._array[i];
+	}
 	return (*this);
 }
 
@@ -53,7 +54,6 @@ template <typename T>
 T &Array<T>::operator[](unsigned int index)
 {
 	if (index >= _size)
-		throw std::out_of_range();
-	else
-		_array = new T[index];
+		throw std::exception();
+	return (_array[index]);
 }
