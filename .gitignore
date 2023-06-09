@@ -1,5 +1,8 @@
 objects
 .vscode
+ex00
+ex02
+ex01
 *.DS_Store
 .gitignore
 *.o
