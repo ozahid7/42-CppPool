@@ -22,6 +22,7 @@ Span::Span(Span const &other)
 Span &Span::operator=(Span const &other)
 {
 	N = other.N;
+	this->_vec = other._vec;
 	return (*this);	
 }
 
