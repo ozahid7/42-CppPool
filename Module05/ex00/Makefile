@@ -1,14 +1,15 @@
-NAME =  ex0
+NAME = Bureaucrat
 
 OBJECTS = objects
 
-HEADERS = easyfind.hpp
+HEADERS = Bureaucrat.hpp
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC =	main.cpp\
+ 		Bureaucrat.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 

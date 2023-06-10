@@ -1,14 +1,14 @@
-NAME =  ex0
+NAME =  ex2
 
 OBJECTS = objects
 
-HEADERS = easyfind.hpp
+HEADERS = 
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
+SRC =	main.cpp \
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 

@@ -1,27 +1,27 @@
-NAME =  ex0
+NAME = ortodox
 
-OBJECTS = objects
+BUILD = build
 
-HEADERS = easyfind.hpp
+HEADERS = Fixed.hpp\
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
+SRC =	main.cpp Fixed.cpp\
 
-OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
+OBJ =  $(addprefix build/, $(SRC:.cpp=.o))
 
 all: $(NAME)
 $(NAME) : $(OBJ)
 	$(C++) $(CPP_FLAGS) $(OBJ) -o $(NAME) 
 
-$(OBJECTS)/%.o: %.cpp $(HEADERS)
+$(BUILD)/%.o: %.cpp $(HEADERS)
 	@mkdir -p $(@D)
 	$(C++) $(CPP_FLAGS) -c $< -o $@
 	
 clean:
-	@rm -rf $(OBJECTS)
+	@rm -rf $(BUILD)
 
 fclean: clean
 	@rm -rf $(NAME)
