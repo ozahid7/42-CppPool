@@ -1,14 +1,14 @@
-NAME =  ex0
+NAME =  btc
 
 OBJECTS = objects
 
-HEADERS = easyfind.hpp
+HEADERS = BitcoinExchange.hpp
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
+SRC =	main.cpp BitcoinExchange.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
