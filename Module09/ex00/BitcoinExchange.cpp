@@ -53,9 +53,7 @@ std::vector<std::string> ft_split(std::string str, char c)
 	size_t pos;
 	size_t start = 0;
 	std::vector<std::string> vec;
-	size_t	last_space = str.find_last_not_of(c);
-	size_t	first_space = str.find_first_not_of(c);
-	str = str.substr(first_space, last_space - first_space + 1);
+	str = trim_spaces(str);
 	pos = str.find(c);
 	while (pos != std::string::npos){
 		vec.push_back(str.substr(start, pos - start));
@@ -75,20 +73,61 @@ std::string trim_spaces(std::string str){
 void is_it_digits(std::vector<std::string> vec)
 {
 	for(size_t i = 0; i < vec.size(); i++){
-	// std::cout<<vec[i]<<std::endl;
 		for (size_t j = 0; j < vec[i].size(); j++){
 			if (!std::isdigit(vec[i][j]))
-				throw std::invalid_argument("It is not digit Parcing Error");
+				std::cout<<"Error : It Is not Digit"<<std::endl;
 		}	
 	}
 }
 
+bool is_leap(int year) {
+    if (year % 400 == 0)
+        return true;
+    else if ((year % 100 != 0) && (year % 4 == 0))
+        return true;
+    else
+        return false;
+}
+
 void parse_key(std::string key){
 	std::vector<std::string> vec;
+	int year;
+	int month;
+	int day;
+	int limit = 31;
+	std::stringstream ss;
 	vec = ft_split(key, '-');
 	if (vec.size() != 3)
-		throw std::length_error("key Parsing Error");
+		std::cout<<"Error : Invalid Date Format"<<std::endl;
 	is_it_digits(vec);
+	ss << vec[0];
+	ss >> year;
+	if (ss.fail() || ss.peek() != -1)
+		std::cout<<"Error : Year has some Invalid Charcters"<<std::endl;
+	if (year < 2009 || year > 2022)
+		std::cout<<"Error : Year Out of Range"<<std::endl;
+	ss.clear();
+	ss << vec[1];
+	ss >> month;
+	if (ss.fail() || ss.peek() != -1)
+		std::cout<<"Error : Month has some Invalid Charcters"<<std::endl;
+	if (month == 4 || month == 6 || month == 9 || month == 11)
+		limit = 30;
+	else if (month == 2){
+		if (is_leap(year))
+			limit = 29;
+		else
+			limit = 28;
+	}
+	if (month < 0 || month > 12)
+		std::cout<<"Error : Month Out of Range"<<std::endl;
+	ss.clear();
+	ss << vec[2];
+	ss >> day;
+	if (ss.fail() || ss.peek() != -1)
+		std::cout<<"Error : Day has some Invalid Charcters"<<std::endl;
+	if (day < 0 || day > limit)
+		std::cout<<"Error : Day Out of Range"<<std::endl;
 }
 
 void parse_value(std::string value){
@@ -97,7 +136,10 @@ void parse_value(std::string value){
 	std::stringstream ss;
 	ss << value;
 	ss >> nb;
-	std::cout<<nb<<std::endl;
+	if (ss.fail() || ss.peek() != -1)
+		std::cout<<"Error : value has some Invalid charaters"<<std::endl;
+	if (nb < 0 || nb > 1000)
+		std::cout<<"Error : Value Out of range"<<std::endl;
 }
 
 void BitcoinExchange::fill_input()
@@ -112,8 +154,8 @@ void BitcoinExchange::fill_input()
 		while (std::getline(file, line) && !line.empty())
 		{
 			vec = ft_split(line, '|');
-			if (vec.size() > 2)
-				throw std::length_error("Split by | Parsing Error");
+			if (vec.size() != 2)
+				std::cout<<("Error : Invalid Elements")<<std::endl;
 			key = trim_spaces(vec[0]);
 			parse_key(key);
 			value = trim_spaces(vec[1]);

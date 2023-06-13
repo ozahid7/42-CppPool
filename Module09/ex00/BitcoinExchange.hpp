@@ -26,6 +26,7 @@ std::vector<std::string> 			ft_split(std::string str, char c);
 void is_it_digits(std::vector<std::string> vec);
 void parse_key(std::string key);
 void parse_value(std::string value);
+bool is_leap(int year);
 std::string trim_spaces(std::string str);
 
 #endif

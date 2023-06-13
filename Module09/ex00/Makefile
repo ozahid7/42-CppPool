@@ -6,7 +6,7 @@ HEADERS = BitcoinExchange.hpp
 
 C++ = c++
 
-CPP_FLAGS = -Wall -Wextra -Werror 
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++98 
 
 SRC =	main.cpp BitcoinExchange.cpp\
 
