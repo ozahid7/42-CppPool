@@ -224,9 +224,14 @@ void BitcoinExchange::fill_input()
 	std::vector<std::string> vec;
 	std::string	value;
 	if (file.is_open()){
-		std::getline(file, line);
-		while (std::getline(file, line) && !line.empty())
+		while (std::getline(file, line))
 		{
+			if (!line.compare("date | value"))
+				continue;
+			if (line.empty()){
+				std::cout<<"Error : Empty Line"<<std::endl;
+				continue;
+			}
 			vec = ft_split(line, '|');
 			if (vec.size() != 2){
 				std::cout<<("Error : Invalid Elements")<<std::endl;
