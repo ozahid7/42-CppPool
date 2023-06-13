@@ -17,11 +17,11 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &other)
 
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &other)
 {
-	(void)other;
+	_data = other._data;
 	return (*this);
 }
 
-std::map<long long, double> BitcoinExchange::get_data()
+std::map<std::string, double> BitcoinExchange::get_data()
 {
 	return _data;
 }
@@ -30,12 +30,10 @@ void BitcoinExchange::fill_data()
 {
 	std::fstream file("data.csv");
 	std::string line;
-	std::string key_str;
-	std::string key_tmp;
 	std::vector<std::string> vec;
 	std::stringstream ss;
 	double	value;
-	long long	key;
+	std::string	key;
 	if(file.is_open())
 	{
 		std::getline(file, line);
@@ -43,14 +41,7 @@ void BitcoinExchange::fill_data()
 		{
 			size_t pos = line.find(',');
 			if (pos != std::string::npos){
-				key_str = line.substr(0, pos);
-				vec = ft_split(key_str, '-');
-				ss << vec[0];
-				ss << vec[1];
-				ss << vec[2];
-				ss >> key_tmp;
-				ss.clear();
-				key = std::strtol(key_tmp.c_str(), NULL,10);
+				key = line.substr(0, pos);
 				value = std::strtod(line.substr(pos + 1, line.size()).c_str(), NULL);
 			}
 			_data.insert(std::make_pair(key, value));
@@ -83,7 +74,16 @@ std::vector<std::string> ft_split(std::string str, char c)
 std::string trim_spaces(std::string str){
 	size_t	last_space = str.find_last_not_of(' ');
 	size_t	first_space = str.find_first_not_of(' ');
+	size_t	last_tab = str.find_last_not_of('\t');
+	size_t	first_tab = str.find_first_not_of('\t');
+	size_t	last_v = str.find_last_not_of('\v');
+	size_t	first_v = str.find_first_not_of('\v');
+	size_t	last_r = str.find_last_not_of('\r');
+	size_t	first_r = str.find_first_not_of('\r');
 	str = str.substr(first_space, last_space - first_space + 1);
+	str = str.substr(first_tab, last_tab - first_tab + 1);
+	str = str.substr(first_v, last_v - first_v + 1);
+	str = str.substr(first_r, last_r - first_r + 1);
 	return (str);
 }
 
@@ -106,38 +106,13 @@ bool is_leap(int year) {
         return false;
 }
 
-void BitcoinExchange::get_btc_value(std::vector<std::string> vec, double value)
+void BitcoinExchange::get_btc_value(std::string key, double value)
 {
-	std::stringstream ss;
-	std::string	key_tmp;
-	std::string	key_print;
-	long long key;
-	std::map<long long, double>::iterator it;
-	ss << vec[0];
-	ss << vec[1];
-	ss << vec[2];
-	ss >> key_tmp;
-	key = std::strtol(key_tmp.c_str(), NULL, 10);
-	it = _data.find(key);
-	if (it != _data.end()){
-		ss.clear();
-		ss << it->first;
-		ss >> key_print;
-		key_print.insert(4, "-");
-		key_print.insert(7, "-");
-		std::cout<<key_print<< " => " << value << " = " << it->second<<std::endl;
-	}else{
-		ss.clear();
-		key_print.clear();
-		it = _data.lower_bound(key);
+	std::map<std::string, double>::iterator it;
+	it = _data.lower_bound(key);
+	if(it != _data.begin() && it->first != key)
 		it--;
-		ss << it->first;
-		ss >> key_print;
-		key_print.insert(4, "-");
-		key_print.insert(7, "-");
-		std::cout<<key_print<< " => " << value << " = " << it->second<<std::endl;
-		
-	}
+	std::cout<<it->first<< " => " << value << " = " << it->second<<std::endl;
 }
 
 int BitcoinExchange::parse_key(std::string key, double value){
@@ -193,7 +168,7 @@ int BitcoinExchange::parse_key(std::string key, double value){
 		std::cout<<"Error : Day Out of Range"<<std::endl;
 		return 1;
 	}
-	get_btc_value(vec, value);
+	get_btc_value(key, value);
 	return (0);
 }
 
@@ -216,9 +191,9 @@ int BitcoinExchange::parse_value(std::string value){
 	return 0;
 }
 
-void BitcoinExchange::fill_input()
+void BitcoinExchange::fill_input(char *fil)
 {
-	std::fstream file("input.csv");
+	std::fstream file(fil);
 	std::string line;
 	std::string key;
 	std::vector<std::string> vec;
@@ -246,7 +221,11 @@ void BitcoinExchange::fill_input()
 			vec.clear();
 		}
 	}else
+	{
+		file.close();	
 		throw std::invalid_argument("Input file is not opened");
+	}
+	file.close();
 }
 
 
