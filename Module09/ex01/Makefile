@@ -1,14 +1,14 @@
-NAME =  ex1
+NAME =  RPN
 
 OBJECTS = objects
 
-HEADERS = easyfind.hpp
+HEADERS = RPN.hpp
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
+SRC =	main.cpp RPN.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
