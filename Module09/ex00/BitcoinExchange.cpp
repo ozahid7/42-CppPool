@@ -54,23 +54,6 @@ void BitcoinExchange::fill_data()
 	file.close();
 }
 
-std::vector<std::string> ft_split(std::string str, char c)
-{
-	size_t pos;
-	size_t start = 0;
-	std::vector<std::string> vec;
-	str = trim_spaces(str);
-	pos = str.find(c);
-	while (pos != std::string::npos){
-		vec.push_back(str.substr(start, pos - start));
-		pos++;
-		start = pos;
-		pos = str.find(c, start);
-	}
-	vec.push_back(str.substr(start, pos - start));
-	return (vec);
-}
-
 std::string trim_spaces(std::string str){
 	size_t	last_space = str.find_last_not_of(' ');
 	size_t	first_space = str.find_first_not_of(' ');
@@ -87,14 +70,13 @@ std::string trim_spaces(std::string str){
 	return (str);
 }
 
-void is_it_digits(std::vector<std::string> vec)
+int is_it_digits(std::string str)
 {
-	for(size_t i = 0; i < vec.size(); i++){
-		for (size_t j = 0; j < vec[i].size(); j++){
-			if (!std::isdigit(vec[i][j]))
-				std::cout<<"Error : It Is not Digit"<<std::endl;
-		}	
+	for (size_t j = 0; j < str.size(); j++){
+		if (!std::isdigit(str[j]))
+			return (1);
 	}
+	return (0);
 }
 
 bool is_leap(int year) {
@@ -112,39 +94,41 @@ void BitcoinExchange::get_btc_value(std::string key, double value)
 	it = _data.lower_bound(key);
 	if(it != _data.begin() && it->first != key)
 		it--;
-	std::cout<<it->first<< " => " << value << " = " << it->second<<std::endl;
+	std::cout<<it->first<< " => " << value << " = " << it->second * value<<std::endl;
 }
 
 int BitcoinExchange::parse_key(std::string key, double value){
-	std::vector<std::string> vec;
 	int year;
 	int month;
 	int day;
+	std::string date;
 	int limit = 31;
 	std::stringstream ss;
-	vec = ft_split(key, '-');
-	if (vec.size() != 3){
-		std::cout<<"Error : Invalid Date Format"<<std::endl;
-		return 1;
+	ss << key;
+	std::getline(ss, date, '-');
+	if(is_it_digits(date)){
+		std::cout<<"Error : Is Not Digit"<<std::endl;
+		return (1);
 	}
-	is_it_digits(vec);
-	ss << vec[0];
-	ss >> year;
-	if (ss.fail() || ss.peek() != -1){
-		std::cout<<"Error : Year has some Invalid Charcters"<<std::endl;
-		return 1;
-	}
+	year = std::atof(date.c_str());
 	if (year < 2009 || year > 2022){
 		std::cout<<"Error : Year Out of Range"<<std::endl;
 		return 1;
 	}
-	ss.clear();
-	ss << vec[1];
-	ss >> month;
-	if (ss.fail() || ss.peek() != -1){
-		std::cout<<"Error : Month has some Invalid Charcters"<<std::endl;
-		return 1;
+	date.clear();
+	std::getline(ss, date, '-');
+	if(is_it_digits(date)){
+		std::cout<<"Error : Is Not Digit"<<std::endl;
+		return (1);
 	}
+	month = std::atof(date.c_str());
+	date.clear();
+	std::getline(ss, date, '-');
+	if(is_it_digits(date)){
+		std::cout<<"Error : Is Not Digit"<<std::endl;
+		return (1);
+	}
+	day = std::atof(date.c_str());
 	if (month == 4 || month == 6 || month == 9 || month == 11)
 		limit = 30;
 	else if (month == 2){
@@ -155,13 +139,6 @@ int BitcoinExchange::parse_key(std::string key, double value){
 	}
 	if (month < 0 || month > 12){
 		std::cout<<"Error : Month Out of Range"<<std::endl;
-		return 1;
-	}
-	ss.clear();
-	ss << vec[2];
-	ss >> day;
-	if (ss.fail() || ss.peek() != -1){
-		std::cout<<"Error : Day has some Invalid Charcters"<<std::endl;
 		return 1;
 	}
 	if (day < 0 || day > limit){
@@ -178,14 +155,9 @@ int BitcoinExchange::parse_value(std::string value){
 	std::stringstream ss;
 	ss << value;
 	ss >> nb;
-	if (ss.fail() || ss.peek() != -1)
+	if (ss.fail() || ss.peek() != -1 || nb < 0 || nb > 1000)
 	{
-		std::cout<<"Error : value has some Invalid charaters"<<std::endl;
-		return (1);
-	}
-	if (nb < 0 || nb > 1000)
-	{
-		std::cout<<"Error : Value Out of range"<<std::endl;
+		std::cout<<"Error : value has some Invalid Content"<<std::endl;
 		return (1);
 	}
 	return 0;
@@ -196,29 +168,29 @@ void BitcoinExchange::fill_input(char *fil)
 	std::fstream file(fil);
 	std::string line;
 	std::string key;
-	std::vector<std::string> vec;
 	std::string	value;
+	std::stringstream ss("default");
 	if (file.is_open()){
 		while (std::getline(file, line))
 		{
+			ss.clear();
 			if (!line.compare("date | value"))
 				continue;
 			if (line.empty()){
 				std::cout<<"Error : Empty Line"<<std::endl;
 				continue;
 			}
-			vec = ft_split(line, '|');
-			if (vec.size() != 2){
-				std::cout<<("Error : Invalid Elements")<<std::endl;
-				continue;
-			}
-			value = trim_spaces(vec[1]);
+			ss << line;
+			std::getline(ss, line, '|');
+			ss >> value;
+			key = line;
+			ss.clear();
+			value = trim_spaces(value);
 			if (parse_value(value))
 				continue;
-			key = trim_spaces(vec[0]);
+			key = trim_spaces(key);
 			if(parse_key(key, std::atof(value.c_str())))
 				continue;
-			vec.clear();
 		}
 	}else
 	{

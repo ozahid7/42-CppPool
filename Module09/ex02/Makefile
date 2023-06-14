@@ -1,4 +1,4 @@
-NAME =  ex2
+NAME =  PmergeMe
 
 OBJECTS = objects
 

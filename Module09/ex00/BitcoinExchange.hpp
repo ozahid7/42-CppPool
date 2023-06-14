@@ -26,8 +26,7 @@ class BitcoinExchange{
 	std::map<std::string, double> _data;
 	std::map<std::string, double> _input;
 };
-std::vector<std::string> 			ft_split(std::string str, char c);
-void is_it_digits(std::vector<std::string> vec);
+int is_it_digits(std::string str);
 bool is_leap(int year);
 std::string trim_spaces(std::string str);
 
