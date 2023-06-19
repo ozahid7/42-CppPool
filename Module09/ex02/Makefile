@@ -2,13 +2,13 @@ NAME =  PmergeMe
 
 OBJECTS = objects
 
-HEADERS = easyfind.hpp
+HEADERS = PmergeMe.hpp
 
 C++ = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC =	main.cpp\
+SRC =	main.cpp PmergeMe.cpp\
 
 OBJ =  $(addprefix objects/, $(SRC:.cpp=.o))
 
