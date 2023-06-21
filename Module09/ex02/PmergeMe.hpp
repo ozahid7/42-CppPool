@@ -5,6 +5,8 @@
 #include <vector>
 #include <deque>
 #include <sstream>
+#include <optional>
+
 
 typedef std::vector<std::pair<int, int> > ConVec;
 typedef ConVec::iterator iterator;
@@ -17,11 +19,16 @@ public:
 
 	PmergeMe &operator=(PmergeMe const &other);
 
-	void pair_me(int ac, char **av);
-	ConVec get_vec() const;
-	void	set_vec(ConVec vec);
-	int	get_mr_lonly() const;
-	ConVec sort_pairs(size_t size);
+	void				pair_me(int ac, char **av);
+	ConVec				get_vec() const;
+	void				set_vec(ConVec vec);
+	int					get_mr_lonly() const;
+	std::vector<int>	get_pend();
+	std::vector<int>	get_main();
+	ConVec				sort_pairs();
+	void				separate_pair();
+	std::vector<size_t>	make_jacob();
+	void				binary_insert();
 private:
 	ConVec _vec;
 	std::vector<int> main;
