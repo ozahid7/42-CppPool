@@ -1,18 +1,14 @@
 #include "RPN.hpp"
 
 std::string trim_spaces(std::string str){
-	size_t	last_space = str.find_last_not_of(' ');
-	size_t	first_space = str.find_first_not_of(' ');
-	size_t	last_tab = str.find_last_not_of('\t');
-	size_t	first_tab = str.find_first_not_of('\t');
-	size_t	last_v = str.find_last_not_of('\v');
-	size_t	first_v = str.find_first_not_of('\v');
-	size_t	last_r = str.find_last_not_of('\r');
-	size_t	first_r = str.find_first_not_of('\r');
-	str = str.substr(first_space, last_space - first_space + 1);
-	str = str.substr(first_tab, last_tab - first_tab + 1);
-	str = str.substr(first_v, last_v - first_v + 1);
-	str = str.substr(first_r, last_r - first_r + 1);
+	while(1){
+		if (std::isspace(str.front()))
+			str.erase(0, 1);
+		if (std::isspace(str.back()))
+			str.erase(str.length() - 1, str.length());
+		else if(!std::isspace(str.front()) && !std::isspace(str.back()))
+			break;
+	}
 	return (str);
 }
 

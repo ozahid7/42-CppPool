@@ -19,7 +19,7 @@ class BitcoinExchange{
 	std::map<std::string, double>		get_data();
 	void								fill_data();
 	void								fill_input(char *fil);
-	int parse_key(std::string key, double value);
+	int parse_key(std::string key);
 	void get_btc_value(std::string key, double value);
 	int parse_value(std::string value);
 	private:

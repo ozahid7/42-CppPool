@@ -74,7 +74,7 @@ std::string trim_spaces(std::string str){
 		if (std::isspace(str.front()))
 			str.erase(0, 1);
 		if (std::isspace(str.back()))
-			str.erase(str.length() - 2, str.length() - 1);
+			str.erase(str.length() - 1, str.length());
 		else if(!std::isspace(str.front()) && !std::isspace(str.back()))
 			break;
 	}

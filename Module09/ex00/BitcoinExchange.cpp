@@ -55,18 +55,14 @@ void BitcoinExchange::fill_data()
 }
 
 std::string trim_spaces(std::string str){
-	size_t	last_space = str.find_last_not_of(' ');
-	size_t	first_space = str.find_first_not_of(' ');
-	size_t	last_tab = str.find_last_not_of('\t');
-	size_t	first_tab = str.find_first_not_of('\t');
-	size_t	last_v = str.find_last_not_of('\v');
-	size_t	first_v = str.find_first_not_of('\v');
-	size_t	last_r = str.find_last_not_of('\r');
-	size_t	first_r = str.find_first_not_of('\r');
-	str = str.substr(first_space, last_space - first_space + 1);
-	str = str.substr(first_tab, last_tab - first_tab + 1);
-	str = str.substr(first_v, last_v - first_v + 1);
-	str = str.substr(first_r, last_r - first_r + 1);
+	while(1){
+		if (std::isspace(str.front()))
+			str.erase(0, 1);
+		if (std::isspace(str.back()))
+			str.erase(str.length() - 1, str.length());
+		else if(!std::isspace(str.front()) && !std::isspace(str.back()))
+			break;
+	}
 	return (str);
 }
 
@@ -94,40 +90,33 @@ void BitcoinExchange::get_btc_value(std::string key, double value)
 	it = _data.lower_bound(key);
 	if(it != _data.begin() && it->first != key)
 		it--;
-	std::cout<<it->first<< " => " << value << " = " << it->second * value<<std::endl;
+	std::cout<<it->first<< " => " << value << " = " << (double)(it->second * value)<<std::endl;
 }
 
-int BitcoinExchange::parse_key(std::string key, double value){
+int BitcoinExchange::parse_key(std::string key){
 	int year;
 	int month;
+	bool err = false;
 	int day;
 	std::string date;
 	int limit = 31;
 	std::stringstream ss;
 	ss << key;
 	std::getline(ss, date, '-');
-	if(is_it_digits(date)){
-		std::cout<<"Error : Is Not Digit"<<std::endl;
-		return (1);
-	}
+	if(is_it_digits(date) || date.empty())
+		err = true;
 	year = std::atof(date.c_str());
-	if (year < 2009 || year > 2022){
-		std::cout<<"Error : Year Out of Range"<<std::endl;
-		return 1;
-	}
+	if (year < 2009 || year > 2022)
+		err = true;
 	date.clear();
 	std::getline(ss, date, '-');
-	if(is_it_digits(date)){
-		std::cout<<"Error : Is Not Digit"<<std::endl;
-		return (1);
-	}
+	if(is_it_digits(date) || date.empty())
+		err = true;
 	month = std::atof(date.c_str());
 	date.clear();
 	std::getline(ss, date, '-');
-	if(is_it_digits(date)){
-		std::cout<<"Error : Is Not Digit"<<std::endl;
-		return (1);
-	}
+	if(is_it_digits(date) || date.empty())
+		err = true;
 	day = std::atof(date.c_str());
 	if (month == 4 || month == 6 || month == 9 || month == 11)
 		limit = 30;
@@ -137,15 +126,15 @@ int BitcoinExchange::parse_key(std::string key, double value){
 		else
 			limit = 28;
 	}
-	if (month < 0 || month > 12){
-		std::cout<<"Error : Month Out of Range"<<std::endl;
-		return 1;
+	if (month < 0 || month > 12)
+		err = true;
+	if (day < 0 || day > limit)
+		err = true;
+	if (err == true)
+	{
+		std::cout<<"Error : bad input => "<<key<<std::endl;
+		return (1);
 	}
-	if (day < 0 || day > limit){
-		std::cout<<"Error : Day Out of Range"<<std::endl;
-		return 1;
-	}
-	get_btc_value(key, value);
 	return (0);
 }
 
@@ -155,9 +144,20 @@ int BitcoinExchange::parse_value(std::string value){
 	std::stringstream ss;
 	ss << value;
 	ss >> nb;
-	if (ss.fail() || ss.peek() != -1 || nb < 0 || nb > 1000)
+
+	if (ss.fail() || ss.peek() != -1)
 	{
-		std::cout<<"Error : value has some Invalid Content"<<std::endl;
+		std::cout<<"Error : not valid Content"<<std::endl;
+		return (1);
+	}
+	else if (nb < 0)
+	{
+		std::cout<<"Error : not positive number"<<std::endl;
+		return (1);
+	}
+	else if (nb > 1000)
+	{
+		std::cout<<"Error : too large a number"<<std::endl;
 		return (1);
 	}
 	return 0;
@@ -169,7 +169,7 @@ void BitcoinExchange::fill_input(char *fil)
 	std::string line;
 	std::string key;
 	std::string	value;
-	std::stringstream ss("default");
+	std::stringstream ss;
 	if (file.is_open()){
 		while (std::getline(file, line))
 		{
@@ -185,12 +185,13 @@ void BitcoinExchange::fill_input(char *fil)
 			ss >> value;
 			key = line;
 			ss.clear();
+			key = trim_spaces(key);
+			if(parse_key(key))
+				continue;
 			value = trim_spaces(value);
 			if (parse_value(value))
 				continue;
-			key = trim_spaces(key);
-			if(parse_key(key, std::atof(value.c_str())))
-				continue;
+			get_btc_value(key, std::atof(value.c_str()));
 		}
 	}else
 	{
