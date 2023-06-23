@@ -147,7 +147,7 @@ int BitcoinExchange::parse_value(std::string value){
 
 	if (ss.fail() || ss.peek() != -1)
 	{
-		std::cout<<"Error : not valid Content"<<std::endl;
+		std::cout<<"Error : bad input => "<<value<<std::endl;
 		return (1);
 	}
 	else if (nb < 0)
