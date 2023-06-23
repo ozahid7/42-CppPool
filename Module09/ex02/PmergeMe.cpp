@@ -93,8 +93,6 @@ void PmergeMe::pair_me(int ac, char **av){
 	bool mode = false;
 
 	std::stringstream ss;
-	if (ac == 1)
-			throw std::invalid_argument("Invalid Arguments");
 	if (ac % 2 == 0)
 		mode = true;
 	for (int i = 1; i < ac; i += 2){
@@ -118,17 +116,15 @@ void PmergeMe::pair_me(int ac, char **av){
 		tmp = fst;
 		if (sec > fst)
 			std::swap(fst, sec);
-		if (i != ac - 1)
+		if (i != ac - 1){
+			before.push_back(fst);
+			before.push_back(sec);
 			_vec.push_back(std::make_pair(fst, sec));
+		}
 		if (mode)
 			_mr_lonly = tmp;
 	}
 }
-
-bool compare_pair(std::pair<int, int> first, std::pair<int, int> second){
-	return (first.first < second.first);
-}
-
 
 int jacobsthal(int n) {
     int a = 0;
@@ -151,8 +147,6 @@ int jacobsthal(int n) {
     return result;
 }
 
-
-
 void PmergeMe::separate_pair()
 {
 	ConVec::iterator it;
@@ -161,61 +155,45 @@ void PmergeMe::separate_pair()
 		pend.push_back(it->second);
 	}
 	if (!pend.empty()){
-		main.insert(main.begin(), pend[0]);
+		main.insert(main.begin(), *pend.begin());
 	}
-
-	// for (it = _vec.begin(); it < _vec.end(); it++)
-	// {
-	// 	std::cout<<it->first<<" "<<it->second<<std::endl;	
-	// }
-	// std::cout<<"################################\n";
-	// for (size_t i = 0; i < main.size(); i++)
-	// {
-	// 	std::cout<<main[i]<<std::endl;	
-	// }
-	// std::cout<<"################################\n";
-	// for (size_t i = 0; i < pend.size(); i++)
-	// {
-	// 	std::cout<<pend[i]<<std::endl;	
-	// }
-	// std::cout<<"################################\n";
 }
 
 std::vector<size_t> PmergeMe::make_jacob()
 {
 	std::vector<size_t> vec;
-	vec.push_back(1);
+	std::vector<size_t> tmp;
 	size_t jacob = 0;
 	size_t i = 3;
-	int j = 0;
+	int j = 1;
 	size_t a;
-	size_t prev;
-	size_t last = 1;
+	size_t prev = INT64_MAX;
+	
+	vec.push_back(1);
+	tmp.push_back(1);
 	while (i <= pend.size()){
 		jacob = jacobsthal(i);
-		if (jacob > pend.size())
+		if (jacob > pend.size()){
+			vec.push_back(jacob);
 			break;
-		a = jacob;
-		last = jacob;
-		vec.push_back(jacob);
-		prev = vec[j];
-		while (1){
-			if (a == prev)
-				break;
-			else if (a > prev)
-			{
-				a--;
-				if(a != prev)
-					vec.push_back(a);
-			}
 		}
-		j++;
+		vec.push_back(jacob);
+		tmp.push_back(jacob);
+		prev = tmp[j - 1];
+		a = jacob;
+		while(--a > prev)
+			vec.push_back(a);
 		i++;
+		j++;
 	}
-	while (++last <= pend.size())
-	{
-		vec.push_back(last);
+	jacob--;
+	size_t size = vec.size();
+	while(size < pend.size()){
+		vec.push_back(jacob);
+		jacob--;
+		size++;
 	}
+
 	return (vec);
 }
 
@@ -226,34 +204,31 @@ void PmergeMe::binary_insert()
 	std::vector<size_t> vec;
 	vec = make_jacob();
 	std::vector<int>::iterator it;
+	std::vector<int>::iterator it1;
+	size_t i = 3;
+	for (it = pend.begin() + 2; it <= pend.end(); it++)
+	{
+		it1 = std::lower_bound(main.begin(), main.end(), *(it - 1));
+		main.insert(it1, *(it - 1));
+		i++;
+	}
+	if (_mr_lonly != -1){
+		it1 = std::lower_bound(main.begin(), main.end(), _mr_lonly);
+		main.insert(it1, _mr_lonly);
+	}
+}
 
-	std::cout<<"\n#########pend############"<<std::endl;
-	for (size_t i = 0; i < pend.size(); i++)
-	{
-		std::cout<<pend[i]<<std::endl;	
-	}
-	std::cout<<"##########jacob###############"<<std::endl;
-	for(size_t i = 0; i < vec.size(); i++)
-	{
-		std::cout<<vec[i]<<std::endl;
-	}
-	std::cout<<"##########main###############"<<std::endl;
-	for (size_t i = 0; i < main.size(); i++)
-	{
-		std::cout<<main[i]<<std::endl;	
-	}
-	std::cout<<"#########.     ##################\n";
-	for (size_t i = 0; i < pend.size(); i++)
-	{
-		std::cout<<vec[i - 1]<<"     ********  "<<std::endl;
-		std::cout<<pend[vec[i - 1]]<<"#########"<<std::endl;
-		it = std::lower_bound(main.begin(), main.end(), pend[vec[i - 1]]);
-		main.insert(it, pend[vec[i - 1]]);	
-	}
-
-	for (size_t i = 0; i < main.size(); i++)
-	{
-		std::cout<<main[i]<<std::endl;	
-	}
-	
+void PmergeMe::show(std::string str, std::clock_t start)
+{
+	std::cout<<"Before:  ";
+	for(std::vector<int>::iterator it = before.begin(); it < before.end(); it++)
+		std::cout<<*it<<" ";
+	std::cout<<std::endl;
+	std::cout<<"After :  ";
+	for(std::vector<int>::iterator it = main.begin(); it < main.end(); it++)
+		std::cout<<*it<<" ";
+	std::clock_t end = clock();
+	double duration = (double)(end - start);
+	std::cout<<std::endl;
+	std::cout<<"Time to process a range of 5 elements with std::"<<str<<" : "<< duration <<" us"<<std::endl; 
 }

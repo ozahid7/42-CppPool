@@ -5,12 +5,12 @@
 #include <vector>
 #include <deque>
 #include <sstream>
+#include <ctime>
 #include <optional>
 
 
 typedef std::vector<std::pair<int, int> > ConVec;
 typedef ConVec::iterator iterator;
-
 class PmergeMe{
 public:
 	PmergeMe();
@@ -29,13 +29,14 @@ public:
 	void				separate_pair();
 	std::vector<size_t>	make_jacob();
 	void				binary_insert();
+	void				show(std::string str, std::clock_t start);
 private:
 	ConVec _vec;
 	std::vector<int> main;
 	std::vector<int> pend;
+	std::vector<int> before;
 	int	_mr_lonly;
 };
-bool compare_pair(std::pair<int, int> first, std::pair<int, int> second);
 int is_it_digits(std::string str);
 std::string trim_spaces(std::string str);
 
