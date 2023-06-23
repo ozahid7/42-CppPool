@@ -21,46 +21,43 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 	return (*this);
 }
 
-ConVec PmergeMe::get_vec() const
+ConVec PmergeMe::v_get_vec() const
 {
 	return _vec;
 }
 
-void PmergeMe::set_vec(ConVec vec)
+Condec PmergeMe::d_get_vec() const
+{
+	return _dec;
+}
+
+void PmergeMe::v_set_vec(ConVec vec)
 {
 	_vec = vec;
 }
 
-int PmergeMe::get_mr_lonly() const
+void PmergeMe::d_set_vec(Condec vec)
 {
-	return _mr_lonly;
+	_dec = vec;
 }
 
-std::vector<int> PmergeMe::get_pend()
+std::vector<int> PmergeMe::v_get_pend()
 {
-	return pend;
+	return v_pend;
 }
 
-std::vector<int> PmergeMe::get_main()
+std::deque<int> PmergeMe::d_get_pend()
 {
-	return main;
+	return d_pend;
 }
 
-ConVec PmergeMe::sort_pairs()
+std::vector<int> PmergeMe::v_get_main()
 {
-	ConVec::iterator it;
-	bool 			flag = false;
-	for (it = _vec.begin(); it < _vec.end() - 1; it++)
-	{
-		if (it->first > (it + 1)->first){
-			std::swap(*it, *(it + 1));
-			flag = true;
-		}
-	}
-	if (flag == false)
-		return (_vec);
-	sort_pairs();
-	return (_vec);
+	return v_main;
+}
+std::deque<int> PmergeMe::d_get_main()
+{
+	return d_main;
 }
 
 int is_it_digits(std::string str)
@@ -84,7 +81,7 @@ std::string trim_spaces(std::string str){
 	return (str);
 }
 
-void PmergeMe::pair_me(int ac, char **av){
+void PmergeMe::v_pair_me(int ac, char **av){
 	std::string first;
 	std::string second;
 	int fst;
@@ -114,15 +111,50 @@ void PmergeMe::pair_me(int ac, char **av){
 			throw std::out_of_range("Invalid Element");
 		ss.clear();
 		tmp = fst;
+		if (ac == 2){
+			v_main.push_back(fst);
+			v_before.push_back(fst);
+		}
+		if (i != ac - 1)
+		{
+			v_before.push_back(fst);
+			v_before.push_back(sec);
+		}
 		if (sec > fst)
 			std::swap(fst, sec);
-		if (i != ac - 1){
-			before.push_back(fst);
-			before.push_back(sec);
+		if (i != ac - 1)
 			_vec.push_back(std::make_pair(fst, sec));
-		}
 		if (mode)
 			_mr_lonly = tmp;
+	}
+}
+
+ConVec PmergeMe::v_sort_pairs()
+{
+	ConVec::iterator it;
+	bool 			flag = false;
+	for (it = _vec.begin(); it < _vec.end() - 1; it++)
+	{
+		if (it->first > (it + 1)->first){
+			std::swap(*it, *(it + 1));
+			flag = true;
+		}
+	}
+	if (flag == false)
+		return (_vec);
+	v_sort_pairs();
+	return (_vec);
+}
+
+void PmergeMe::v_separate_pair()
+{
+	ConVec::iterator it;
+	for (it = _vec.begin(); it < _vec.end(); it++){
+		v_main.push_back(it->first);
+		v_pend.push_back(it->second);
+	}
+	if (!v_pend.empty()){
+		v_main.insert(v_main.begin(), *v_pend.begin());
 	}
 }
 
@@ -147,19 +179,7 @@ int jacobsthal(int n) {
     return result;
 }
 
-void PmergeMe::separate_pair()
-{
-	ConVec::iterator it;
-	for (it = _vec.begin(); it < _vec.end(); it++){
-		main.push_back(it->first);
-		pend.push_back(it->second);
-	}
-	if (!pend.empty()){
-		main.insert(main.begin(), *pend.begin());
-	}
-}
-
-std::vector<size_t> PmergeMe::make_jacob()
+std::vector<size_t> PmergeMe::v_make_jacob()
 {
 	std::vector<size_t> vec;
 	std::vector<size_t> tmp;
@@ -171,9 +191,9 @@ std::vector<size_t> PmergeMe::make_jacob()
 	
 	vec.push_back(1);
 	tmp.push_back(1);
-	while (i <= pend.size()){
+	while (i <= v_pend.size()){
 		jacob = jacobsthal(i);
-		if (jacob > pend.size()){
+		if (jacob > v_pend.size()){
 			vec.push_back(jacob);
 			break;
 		}
@@ -188,7 +208,7 @@ std::vector<size_t> PmergeMe::make_jacob()
 	}
 	jacob--;
 	size_t size = vec.size();
-	while(size < pend.size()){
+	while(size < v_pend.size()){
 		vec.push_back(jacob);
 		jacob--;
 		size++;
@@ -197,38 +217,192 @@ std::vector<size_t> PmergeMe::make_jacob()
 	return (vec);
 }
 
-
-
-void PmergeMe::binary_insert()
+void PmergeMe::v_binary_insert()
 {
 	std::vector<size_t> vec;
-	vec = make_jacob();
+	vec = v_make_jacob();
 	std::vector<int>::iterator it;
 	std::vector<int>::iterator it1;
-	size_t i = 3;
-	for (it = pend.begin() + 2; it <= pend.end(); it++)
+	for (it = v_pend.begin() + 2; it <= v_pend.end(); it++)
 	{
-		it1 = std::lower_bound(main.begin(), main.end(), *(it - 1));
-		main.insert(it1, *(it - 1));
-		i++;
+		it1 = std::lower_bound(v_main.begin(), v_main.end(), *(it - 1));
+		v_main.insert(it1, *(it - 1));
 	}
 	if (_mr_lonly != -1){
-		it1 = std::lower_bound(main.begin(), main.end(), _mr_lonly);
-		main.insert(it1, _mr_lonly);
+		it1 = std::lower_bound(v_main.begin(), v_main.end(), _mr_lonly);
+		v_main.insert(it1, _mr_lonly);
 	}
 }
 
-void PmergeMe::show(std::string str, std::clock_t start)
+void PmergeMe::v_show(std::string str, std::clock_t start)
 {
 	std::cout<<"Before:  ";
-	for(std::vector<int>::iterator it = before.begin(); it < before.end(); it++)
+	for(std::vector<int>::iterator it = v_before.begin(); it < v_before.end(); it++)
 		std::cout<<*it<<" ";
 	std::cout<<std::endl;
+	std::cout<<std::endl;
 	std::cout<<"After :  ";
-	for(std::vector<int>::iterator it = main.begin(); it < main.end(); it++)
+	for(std::vector<int>::iterator it = v_main.begin(); it < v_main.end(); it++)
 		std::cout<<*it<<" ";
 	std::clock_t end = clock();
 	double duration = (double)(end - start);
 	std::cout<<std::endl;
-	std::cout<<"Time to process a range of 5 elements with std::"<<str<<" : "<< duration <<" us"<<std::endl; 
+	std::cout<<std::endl;
+	std::cout<<"Time to process a range of 5 elements with std::"<<str<<" : "<< duration <<" us"<<std::endl;
+	// if (is_sorted(v_main))
+	// 	std::cout<<"\n###############################################sorted##########################################\n";
+}
+
+////////////////////////////////////////////////////deque////////////////////////////////////////////////////
+
+void PmergeMe::d_pair_me(int ac, char **av){
+	std::string first;
+	std::string second;
+	int fst;
+	int sec = -1;
+	int tmp;
+	bool mode = false;
+
+	std::stringstream ss;
+	if (ac % 2 == 0)
+		mode = true;
+	for (int i = 1; i < ac; i += 2){
+		first = av[i];
+		if (av[i + 1])
+			second = av[i + 1];
+		first = trim_spaces(first);
+		second = trim_spaces(second);
+		if (is_it_digits(first) || is_it_digits(second))
+			throw std::invalid_argument("Invalid Element");
+		ss << first;
+		ss >> fst;
+		if (ss.fail())
+			throw std::out_of_range("Invalid Element");
+		ss.clear();
+		ss << second;
+		ss >> sec;
+		if (ss.fail() && sec != -1)
+			throw std::out_of_range("Invalid Element");
+		ss.clear();
+		tmp = fst;
+		if (ac == 2){
+			v_main.push_back(fst);
+			d_before.push_back(fst);
+		}
+		if (i != ac - 1)
+		{
+			d_before.push_back(fst);
+			d_before.push_back(sec);
+		}
+		if (sec > fst)
+			std::swap(fst, sec);
+		if (i != ac - 1){
+			_dec.push_back(std::make_pair(fst, sec));
+		}
+		if (mode)
+			_mr_lonly = tmp;
+	}
+}
+
+Condec PmergeMe::d_sort_pairs()
+{
+	Condec::iterator it;
+	bool 			flag = false;
+	for (it = _dec.begin(); it < _dec.end() - 1; it++)
+	{
+		if (it->first > (it + 1)->first){
+			std::swap(*it, *(it + 1));
+			flag = true;
+		}
+	}
+	if (flag == false)
+		return (_dec);
+	d_sort_pairs();
+	return (_dec);
+}
+
+void PmergeMe::d_separate_pair()
+{
+	Condec::iterator it;
+	for (it = _dec.begin(); it < _dec.end(); it++){
+		d_main.push_back(it->first);
+		d_pend.push_back(it->second);
+	}
+	if (!d_pend.empty()){
+		d_main.insert(d_main.begin(), *d_pend.begin());
+	}
+}
+
+std::deque<size_t> PmergeMe::d_make_jacob()
+{
+	std::deque<size_t> vec;
+	std::deque<size_t> tmp;
+	size_t jacob = 0;
+	size_t i = 3;
+	int j = 1;
+	size_t a;
+	size_t prev = INT64_MAX;
+	
+	vec.push_back(1);
+	tmp.push_back(1);
+	while (i <= d_pend.size()){
+		jacob = jacobsthal(i);
+		if (jacob > d_pend.size()){
+			vec.push_back(jacob);
+			break;
+		}
+		vec.push_back(jacob);
+		tmp.push_back(jacob);
+		prev = tmp[j - 1];
+		a = jacob;
+		while(--a > prev)
+			vec.push_back(a);
+		i++;
+		j++;
+	}
+	jacob--;
+	size_t size = vec.size();
+	while(size < d_pend.size()){
+		vec.push_back(jacob);
+		jacob--;
+		size++;
+	}
+
+	return (vec);
+}
+
+void PmergeMe::d_binary_insert()
+{
+	std::deque<size_t> vec;
+	vec = d_make_jacob();
+	std::deque<int>::iterator it;
+	std::deque<int>::iterator it1;
+	for (it = d_pend.begin() + 2; it <= d_pend.end(); it++)
+	{
+		it1 = std::lower_bound(d_main.begin(), d_main.end(), *(it - 1));
+		d_main.insert(it1, *(it - 1));
+	}
+	if (_mr_lonly != -1){
+		it1 = std::lower_bound(d_main.begin(), d_main.end(), _mr_lonly);
+		d_main.insert(it1, _mr_lonly);
+	}
+}
+
+void PmergeMe::d_show(std::string str, std::clock_t start)
+{
+	std::cout<<"Before:  ";
+	for(std::deque<int>::iterator it = d_before.begin(); it < d_before.end(); it++)
+		std::cout<<*it<<" ";
+	std::cout<<std::endl;
+	std::cout<<std::endl;
+	std::cout<<"After :  ";
+	for(std::deque<int>::iterator it = d_main.begin(); it < d_main.end(); it++)
+		std::cout<<*it<<" ";
+	std::clock_t end = clock();
+	double duration = (double)(end - start);
+	std::cout<<std::endl;
+	std::cout<<std::endl;
+	std::cout<<"Time to process a range of 5 elements with std::"<<str<<" : "<< duration <<" us"<<std::endl;
+	// if (is_sorted(d_main))
+	// 	std::cout<<"\n###############################################sorted##########################################\n";
 }
